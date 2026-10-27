@@ -4,331 +4,382 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>أداء — نظام متابعة أداء الفريق</title>
-<meta name="description" content="أداء: نظام عربي لمتابعة أداء الموظفين يتأقلم مع هوية شركتك. اكتب الخطة بأسلوبك وتتحول لمهام موزعة، ومتابعة وتقييم شهري.">
+<meta name="description" content="أداء: نظام عربي لمتابعة أداء الموظفين، يتجهز على هوية شركتك. خطة الشهر تتحول لمهام موزعة، متابعة يومية، وتقييم شهري واضح.">
 <meta name="theme-color" content="#F1EEE8">
 <meta property="og:title" content="أداء — نظام متابعة أداء الفريق">
-<meta property="og:description" content="اكتب الخطة بأسلوبك، والنظام يوزّعها ويتابع الأداء ويطلع التقييم. يتأقلم مع هوية أي شركة.">
-<meta property="og:image" content="img/dash.jpg">
+<meta property="og:description" content="خطة الشهر تتحول لمهام موزعة، متابعة يومية، وتقييم شهري واضح. يتجهز على هوية شركتك.">
+<meta property="og:image" content="video/poster.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23121212'/%3E%3Crect x='14' y='38' width='8' height='12' rx='2' fill='%23F1EEE8'/%3E%3Crect x='28' y='28' width='8' height='22' rx='2' fill='%23F1EEE8'/%3E%3Crect x='42' y='16' width='8' height='34' rx='2' fill='%23F59A1B'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700&family=Amiri:wght@700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.css">
 <style>
-:root{--paper:#F1EEE8;--paper2:#E7E2D8;--ink:#121212;--grey:#5E5A55;--rule:#D4CEC4;--orange:#F59A1B;--orange2:#B85F05;--night:#0C0C0C;--ease:cubic-bezier(.22,1,.36,1)}
+:root{--paper:#F1EEE8;--card:#F7F5F1;--ink:#121212;--grey:#5E5A55;--rule:#D9D3C9;--orange:#F59A1B;--deep:#9A4E04;--night:#0E0D0C;--ease:cubic-bezier(.22,1,.36,1)}
 *{box-sizing:border-box}
 html{overflow-x:clip}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;line-height:1.75;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;line-height:1.8;-webkit-font-smoothing:antialiased}
 a{color:inherit}
-img{max-width:100%;display:block}
+img,video{max-width:100%;display:block}
 ::selection{background:var(--orange);color:var(--ink)}
-.wrap{width:min(1280px,100% - 40px);margin-inline:auto}
-.d{font-family:Alexandria,"IBM Plex Sans Arabic",sans-serif;font-weight:800;line-height:1.1;margin:0;letter-spacing:-.01em}
-.grey{color:var(--grey)}
-.o{color:var(--orange)}
-.label{font-size:13px;font-weight:500;color:var(--grey);display:inline-flex;align-items:center;gap:8px}
-.label b{width:8px;height:8px;border-radius:2px;background:var(--orange)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:0 28px;border-radius:999px;font:500 16px "IBM Plex Sans Arabic",sans-serif;text-decoration:none;border:1.5px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer;transition:background .3s,color .3s,border-color .3s}
+.wrap{width:min(1200px,100% - 48px);margin-inline:auto}
+.h{font-family:Alexandria,"IBM Plex Sans Arabic",sans-serif;font-weight:600;line-height:1.15;margin:0;letter-spacing:-.015em}
+.kicker{font-family:Alexandria,sans-serif;font-size:13px;font-weight:500;letter-spacing:.04em;color:var(--deep)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:52px;padding:0 26px;border-radius:999px;font:500 15px "IBM Plex Sans Arabic",sans-serif;text-decoration:none;border:1px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer;transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease)}
 .btn:hover{background:var(--ink);color:var(--paper)}
 .btn.solid{background:var(--ink);color:var(--paper)}
-.btn.solid:hover{background:var(--orange);border-color:var(--orange);color:var(--ink)}
-.btn .arr{width:18px;height:18px;transition:transform .35s var(--ease)}
+.btn.solid:hover{background:#2a2826;border-color:#2a2826}
+.btn .arr{width:16px;height:16px;transition:transform .4s var(--ease)}
 .btn:hover .arr{transform:translateX(-4px)}
+section{padding:170px 0}
 
 .mark{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
-.mark svg{width:30px;height:30px;--mk-bg:#121212;--mk-bar:#F1EEE8;--mk-hi:#F59A1B}
-.mark span{font-family:Alexandria,sans-serif;font-weight:800;font-size:24px;line-height:1}
+.mark svg{width:28px;height:28px;--mk-bg:#121212;--mk-bar:#F1EEE8;--mk-hi:#F59A1B}
+.mark span{font-family:Alexandria,sans-serif;font-weight:700;font-size:22px;line-height:1}
 
-.nav{position:fixed;inset-inline:0;top:0;z-index:30;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+.nav{position:fixed;inset-inline:0;top:0;z-index:30;transition:background .4s,border-color .4s;border-bottom:1px solid transparent}
 .nav.solid{background:rgba(241,238,232,.94);border-color:var(--rule)}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:78px;gap:20px}
-.nav-links{display:flex;align-items:center;gap:30px;font-size:14px;color:var(--grey)}
-.nav-links a:not(.btn){text-decoration:none}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:80px;gap:20px}
+.nav-links{display:flex;align-items:center;gap:34px;font-size:14px;color:var(--grey)}
+.nav-links a:not(.btn){text-decoration:none;transition:color .3s}
 .nav-links a:not(.btn):hover{color:var(--ink)}
 .nav .btn{min-height:42px;padding:0 20px;font-size:14px}
 
-.hero{padding:150px 0 0}
-.hero-top{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:48px;align-items:end}
-.hero h1{font-size:clamp(42px,5.8vw,92px)}
-.hero h1 span{display:block;overflow:hidden;padding-bottom:.1em}
+.hero{padding:190px 0 0;text-align:center}
+.hero .kicker{display:block;margin-bottom:28px}
+.hero h1{font-size:clamp(38px,5.8vw,84px);max-width:16ch;margin-inline:auto}
+.hero h1 span{display:block;overflow:hidden;padding-bottom:.08em}
 .hero h1 span i{display:block;font-style:normal}
-.hero-side{display:flex;flex-direction:column;gap:24px;padding-bottom:14px}
-.hero-side p{margin:0;font-size:18px;color:var(--grey)}
-.hero-band{margin-top:80px;background:var(--night);border-radius:28px;padding:clamp(18px,3vw,40px) clamp(18px,3vw,40px) 0;overflow:hidden}
-.hero-band .cap{display:flex;justify-content:space-between;align-items:center;gap:16px;color:#A9A39A;font-size:13px;padding-bottom:clamp(16px,2.4vw,30px);flex-wrap:wrap}
-.hero-band .cap b{color:var(--paper);font-weight:500}
-.hero-band .shot{border-radius:14px 14px 0 0;overflow:hidden;border:1px solid rgba(241,238,232,.12);border-bottom:0;margin:0}
-.hero-band video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#0d0907}
-.vid{position:relative}
-.vid-ctl{position:absolute;bottom:16px;left:16px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(241,238,232,.92);color:#121212;display:grid;place-items:center;cursor:pointer;opacity:.85;transition:opacity .3s}
-.vid-ctl:hover{opacity:1}
-.vid-ctl svg{width:18px;height:18px}
+.hero p.lead{font-size:clamp(17px,1.5vw,19px);color:var(--grey);max-width:580px;margin:30px auto 0}
+.hero .acts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+.stage{margin-top:110px;background:var(--night);border-radius:32px;padding:clamp(14px,2.2vw,28px);text-align:start}
+.stage-top{display:flex;justify-content:space-between;align-items:center;color:#8E8880;font-size:13px;padding:2px 6px 18px;gap:12px;flex-wrap:wrap}
+.stage-top b{color:#EDE8E0;font-weight:500}
+.vid{position:relative;border-radius:16px;overflow:hidden;margin:0}
+.vid video{width:100%;height:auto;aspect-ratio:16/9;background:#0d0907}
+.vid-ctl{position:absolute;bottom:18px;left:18px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(241,238,232,.92);color:#121212;display:grid;place-items:center;cursor:pointer;transition:transform .3s var(--ease)}
+.vid-ctl:hover{transform:scale(1.06)}
+.vid-ctl svg{width:16px;height:16px}
 .vid-ctl .i-play{display:none}
 .vid-ctl.paused .i-play{display:block}
 .vid-ctl.paused .i-pause{display:none}
 
-.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:70px;border-top:1.5px solid var(--ink)}
-.facts div{padding:24px 0 0;padding-inline-end:24px;display:flex;flex-direction:column;gap:8px}
-.facts strong{font-family:Alexandria,sans-serif;font-weight:800;font-size:40px;line-height:1}
-.facts span{font-size:14px;color:var(--grey);max-width:26ch}
+.trust{padding-top:64px;display:flex;justify-content:center;align-items:center;gap:20px;color:var(--grey);font-size:14px;flex-wrap:wrap}
+.trust .chip{display:inline-flex;align-items:center;gap:12px;background:var(--night);color:#EDE8E0;border-radius:999px;padding:8px 18px 8px 10px}
+.trust .chip img{height:26px;width:auto}
 
-.adapt{padding:150px 0 40px}
-.adapt-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(30px,6vw,100px);align-items:center}
-.adapt h2,.sec-title h2{font-size:clamp(36px,4.8vw,72px)}
-.adapt p{color:var(--grey);font-size:17px;margin:20px 0 0}
-.brands{display:flex;flex-direction:column;gap:12px;margin-top:34px}
-.brand{display:flex;align-items:center;gap:16px;padding:16px 18px;border-radius:16px;border:1px solid var(--rule);background:#F7F5F1}
-.brand.on{border-color:var(--ink);background:#fff}
-.sw{display:flex;flex:none}
-.sw i{width:26px;height:26px;border-radius:50%;border:2px solid #fff;margin-inline-start:-8px;box-shadow:0 0 0 1px var(--rule)}
-.sw i:first-child{margin-inline-start:0}
-.brand b{font-weight:600;font-size:15px}
-.brand small{display:block;color:var(--grey);font-size:13px}
-.brand .tag{margin-inline-start:auto;font-size:12px;padding:4px 10px;border-radius:999px;background:var(--orange);color:var(--ink);font-weight:600;white-space:nowrap}
-.brand .tag.soft{background:var(--paper2);color:var(--grey)}
-.adapt-shot{background:var(--night);border-radius:24px;padding:14px;cursor:zoom-in;margin:0}
-.adapt-shot img{border-radius:12px}
+.pillars-head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:60px;align-items:end;margin-bottom:90px}
+.pillars-head h2,.brand-grid h2,.roles-grid h2,.plans-head h2,.faq-grid h2{font-size:clamp(32px,4vw,56px)}
+.pillars-head p{margin:0;color:var(--grey);font-size:17px}
+.pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--ink)}
+.pillar{padding:40px 0 0;padding-inline-end:48px;display:flex;flex-direction:column;gap:16px}
+.pillar + .pillar{padding-inline-start:48px;border-inline-start:1px solid var(--rule)}
+.pillar .n{font-family:Alexandria,sans-serif;font-weight:300;font-size:15px;color:var(--grey)}
+.pillar h3{font-family:Alexandria,sans-serif;font-weight:600;font-size:28px;margin:0}
+.pillar p{margin:0;color:var(--grey);font-size:16px}
 
-.features{padding:130px 0 60px}
-.sec-title{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:40px;align-items:end;margin-bottom:80px}
-.sec-title p{margin:0;color:var(--grey);font-size:17px}
-.show{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(30px,5vw,90px);align-items:start}
-.item{min-height:76vh;display:flex;flex-direction:column;justify-content:center;gap:14px;padding:40px 0;opacity:.28;transition:opacity .5s var(--ease)}
-.item.on{opacity:1}
-.item .k{font-size:14px;font-weight:600;color:var(--orange2)}
-.item h3{font-family:Alexandria,sans-serif;font-weight:700;font-size:clamp(26px,2.6vw,38px);line-height:1.3;margin:0}
-.item p{margin:0;color:var(--grey);font-size:17px}
-.item ul{margin:4px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:15px}
-.item li{padding-inline-start:20px;position:relative}
-.item li::before{content:"";position:absolute;inset-inline-start:0;top:.8em;width:10px;height:2px;background:var(--orange)}
-.item .m-shot{display:none}
-.show-stage{position:sticky;top:max(110px,calc(50vh - 290px))}
-.stage-box{position:relative;aspect-ratio:1800/1200;background:var(--night);border-radius:22px}
-.stage-box figure{position:absolute;inset:12px;margin:0;opacity:0;transform:scale(.985);transition:opacity .6s var(--ease),transform .8s var(--ease);cursor:zoom-in;border-radius:12px;overflow:hidden}
-.stage-box figure.on{opacity:1;transform:none}
-.stage-box img{width:100%;height:100%;object-fit:cover;object-position:top}
-.stage-box img.low{object-position:center 78%}
-.stage-meta{display:flex;justify-content:space-between;margin-top:16px;font-size:13px;color:var(--grey)}
-.dots{display:flex;gap:6px;align-items:center}
-.dots i{width:22px;height:3px;border-radius:2px;background:var(--rule);transition:background .4s,width .4s}
-.dots i.on{background:var(--orange);width:34px}
+.feats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:24px;overflow:hidden;margin-top:110px}
+.feat{background:var(--paper);padding:40px 36px;display:flex;flex-direction:column;gap:12px;transition:background .4s var(--ease)}
+.feat:hover{background:var(--card)}
+.feat svg{width:26px;height:26px}
+.feat h4{font-family:Alexandria,sans-serif;font-weight:600;font-size:19px;margin:8px 0 0}
+.feat p{margin:0;color:var(--grey);font-size:15px}
 
-.roles{padding:140px 0}
-.roles-table{border-top:1.5px solid var(--ink)}
-.r{display:grid;grid-template-columns:90px minmax(0,3fr) minmax(0,6fr);gap:24px;padding:28px 0;border-bottom:1px solid var(--rule);align-items:baseline}
-.r .n{font-family:Alexandria,sans-serif;font-weight:500;font-size:18px;color:var(--grey)}
-.r b{font-family:Alexandria,sans-serif;font-size:28px;font-weight:700;line-height:1.3}
-.r p{margin:0;color:var(--grey);font-size:17px}
+.brand-sec{background:var(--card);border-block:1px solid var(--rule)}
+.brand-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(40px,7vw,120px);align-items:center}
+.brand-grid p{color:var(--grey);font-size:17px;margin:24px 0 0}
+.picker{display:flex;gap:10px;flex-wrap:wrap;margin-top:36px}
+.pick{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:0 18px 0 12px;border-radius:999px;border:1px solid var(--rule);background:var(--paper);font:500 14px "IBM Plex Sans Arabic",sans-serif;color:var(--ink);cursor:pointer;transition:border-color .3s}
+.pick i{width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.pick[aria-pressed="true"]{border-color:var(--ink)}
+.pick:hover{border-color:var(--grey)}
+.mock{--bg:#0d0907;--side:#090604;--panel:#140e0a;--fg:#efe7dc;--mut:#a8917c;--ac:#d8c4a6;--ac2:#a9c7e8;--rad:14px;border-radius:24px;background:var(--bg);color:var(--fg);padding:16px;display:grid;grid-template-columns:minmax(0,1fr) 120px;gap:14px;aspect-ratio:16/11;box-shadow:0 40px 80px -40px rgba(0,0,0,.45)}
+.mock,.mock *{transition:background .6s var(--ease),color .6s var(--ease),border-radius .6s var(--ease)}
+.m-main{display:flex;flex-direction:column;gap:12px;min-width:0}
+.m-side{background:var(--side);border-radius:var(--rad);padding:14px 10px;display:flex;flex-direction:column;gap:8px}
+.m-logo{font-weight:700;font-size:17px;padding:2px 6px 10px}
+.m-nav{height:22px;border-radius:7px;display:flex;align-items:center;padding:0 8px}
+.m-nav span{height:5px;border-radius:3px;background:var(--mut);opacity:.5;width:60%}
+.m-nav.on{background:var(--panel)}
+.m-nav.on span{background:var(--fg);opacity:.85}
+.m-head{display:flex;justify-content:space-between;align-items:center}
+.m-head b{font-family:Alexandria,sans-serif;font-size:clamp(15px,1.6vw,20px);font-weight:600}
+.m-btn{font-size:11px;padding:6px 12px;border-radius:999px;background:var(--fg);color:var(--bg);font-weight:500}
+.m-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.m-kpi{background:var(--panel);border-radius:var(--rad);padding:12px;display:flex;flex-direction:column;gap:6px}
+.m-kpi small{font-size:10px;color:var(--mut)}
+.m-kpi strong{font-family:Alexandria,sans-serif;font-size:clamp(18px,2vw,26px);font-weight:600;line-height:1}
+.m-bar{height:4px;border-radius:3px;background:rgba(127,127,127,.2);overflow:hidden}
+.m-bar i{display:block;height:100%;background:var(--ac);border-radius:inherit}
+.m-list{background:var(--panel);border-radius:var(--rad);padding:12px 14px;display:flex;flex-direction:column;justify-content:space-around;gap:10px;flex:1}
+.m-row{display:flex;align-items:center;gap:10px;font-size:11px}
+.m-row .av{width:20px;height:20px;border-radius:50%;background:var(--ac);flex:none}
+.m-row .av.b{background:var(--ac2)}
+.m-row .t{flex:1}
+.m-row .bar{flex:1.4;height:4px;border-radius:3px;background:rgba(127,127,127,.2);overflow:hidden}
+.m-row .bar i{display:block;height:100%;background:var(--ac)}
+.m-row .p{color:var(--mut);min-width:28px;text-align:left}
 
-.how{padding:20px 0 140px}
-.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:60px}
-.step{display:flex;flex-direction:column;gap:12px;padding:26px;border-radius:20px;background:#F7F5F1;border:1px solid var(--rule)}
-.step .n{font-family:Alexandria,sans-serif;font-weight:800;font-size:44px;line-height:1;color:var(--orange)}
-.step b{font-size:19px;font-weight:600}
-.step p{margin:0;color:var(--grey);font-size:15px}
+.roles-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(40px,7vw,120px)}
+.roles-grid .intro p{color:var(--grey);font-size:17px;margin:24px 0 0}
+.role{display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;padding:26px 0;border-bottom:1px solid var(--rule)}
+.role:first-child{border-top:1px solid var(--ink)}
+.role b{font-family:Alexandria,sans-serif;font-weight:600;font-size:19px}
+.role p{margin:0;color:var(--grey);font-size:16px}
 
-.request{padding:120px 0 140px;background:var(--night);color:var(--paper)}
-.request .grey,.request .f label,.request .note,.request .label{color:#A9A39A}
-.req-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(30px,6vw,110px);align-items:start}
-.req-grid h2{font-size:clamp(38px,5vw,76px)}
-.req-copy{display:flex;flex-direction:column;gap:22px;position:sticky;top:120px}
-.req-copy p{margin:0;font-size:17px;max-width:42ch}
-form{display:flex;flex-direction:column;gap:26px}
+.plans-head{text-align:center;max-width:640px;margin:0 auto 80px}
+.plans-head p{color:var(--grey);font-size:17px;margin:22px 0 0}
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
+.plan{border:1px solid var(--rule);border-radius:26px;padding:38px 34px;display:flex;flex-direction:column;gap:22px;background:var(--paper)}
+.plan.pro{background:var(--night);color:#EDE8E0;border-color:var(--night)}
+.plan .name{font-family:Alexandria,sans-serif;font-weight:600;font-size:24px}
+.plan .for{font-size:14px;color:var(--grey);margin-top:-14px}
+.plan.pro .for{color:#8E8880}
+.plan ul{list-style:none;margin:0;padding:22px 0 0;border-top:1px solid var(--rule);display:flex;flex-direction:column;gap:12px;font-size:15px;flex:1}
+.plan.pro ul{border-color:#2A2826}
+.plan li{display:flex;gap:12px;align-items:flex-start}
+.plan li svg{width:16px;height:16px;flex:none;margin-top:6px;color:var(--deep)}
+.plan.pro li svg{color:var(--orange)}
+.plan .btn{width:100%}
+.plan.pro .btn{border-color:#EDE8E0;color:#EDE8E0}
+.plan.pro .btn:hover{background:#EDE8E0;color:var(--ink)}
+.plan .badge{align-self:flex-start;font-size:12px;font-weight:500;padding:4px 12px;border-radius:999px;background:var(--orange);color:var(--ink)}
+
+.faq-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(40px,7vw,120px)}
+details{border-bottom:1px solid var(--rule)}
+details:first-of-type{border-top:1px solid var(--ink)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:26px 0;font-family:Alexandria,sans-serif;font-weight:500;font-size:18px}
+summary::-webkit-details-marker{display:none}
+summary .pm{width:14px;height:14px;position:relative;flex:none}
+summary .pm::before,summary .pm::after{content:"";position:absolute;inset:6px 0 auto;height:1.5px;background:var(--ink);transition:transform .4s var(--ease)}
+summary .pm::after{transform:rotate(90deg)}
+details[open] summary .pm::after{transform:rotate(0)}
+details p{margin:0;padding:0 0 26px;color:var(--grey);font-size:16px;max-width:60ch}
+
+.request{background:var(--night);color:#EDE8E0;padding:160px 0}
+.req-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(40px,7vw,120px);align-items:start}
+.req-grid h2{font-size:clamp(34px,4.4vw,64px)}
+.request .kicker{color:var(--orange)}
+.req-copy{display:flex;flex-direction:column;gap:24px;position:sticky;top:130px}
+.req-copy p{margin:0;font-size:17px;color:#8E8880;max-width:40ch}
+form{display:flex;flex-direction:column;gap:28px}
 .f{display:flex;flex-direction:column;gap:4px}
-.f label{font-size:13px}
-.f input,.f textarea{width:100%;border:0;border-bottom:1px solid #3A3733;background:transparent;color:var(--paper);padding:12px 0;font:400 19px "IBM Plex Sans Arabic",sans-serif;border-radius:0;transition:border-color .3s}
-.f textarea{resize:vertical;min-height:90px;line-height:1.7}
+.f label,.f .lbl{font-size:13px;color:#8E8880}
+.f input,.f textarea{width:100%;border:0;border-bottom:1px solid #2F2C29;background:transparent;color:#EDE8E0;padding:12px 0;font:400 18px "IBM Plex Sans Arabic",sans-serif;border-radius:0;transition:border-color .3s}
+.f textarea{resize:vertical;min-height:84px;line-height:1.7}
 .f input:focus,.f textarea:focus{outline:0;border-bottom-color:var(--orange)}
-.f input::placeholder{color:#6B665F}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:26px}
-.sizes{display:flex;flex-wrap:wrap;gap:8px;padding-top:8px;position:relative}
-.sizes input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;inset-inline-start:0;top:0}
-.sizes label{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid #3A3733;font-size:15px;color:var(--paper);cursor:pointer;transition:all .25s}
-.sizes input:checked + label{background:var(--orange);color:var(--ink);border-color:var(--orange)}
-.sizes input:focus-visible + label{outline:2px solid var(--orange);outline-offset:2px}
+.f input::placeholder,.f textarea::placeholder{color:#5A5650}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.opts{display:flex;flex-wrap:wrap;gap:8px;padding-top:10px;position:relative}
+.opts input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;inset-inline-start:0;top:0}
+.opts label{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid #2F2C29;font-size:14px;color:#EDE8E0;cursor:pointer;transition:all .3s}
+.opts input:checked + label{background:#EDE8E0;color:var(--ink);border-color:#EDE8E0}
+.opts input:focus-visible + label{outline:2px solid var(--orange);outline-offset:2px}
 .request .btn.solid{background:var(--orange);border-color:var(--orange);color:var(--ink)}
-.request .btn.solid:hover{background:var(--paper);border-color:var(--paper)}
-.note{font-size:13px;margin:0}
+.request .btn.solid:hover{background:#EDE8E0;border-color:#EDE8E0}
+.note{font-size:13px;margin:0;color:#8E8880}
 
-footer{background:var(--night);color:#A9A39A;border-top:1px solid #24221F;padding:30px 0;font-size:14px}
+footer{background:var(--night);color:#8E8880;border-top:1px solid #23211F;padding:34px 0;font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
-footer .mark svg{--mk-bg:#F1EEE8;--mk-bar:#121212;--mk-hi:#F59A1B}
-footer .mark span{color:var(--paper);font-size:20px}
+footer .mark svg{--mk-bg:#EDE8E0;--mk-bar:#121212;--mk-hi:#F59A1B}
+footer .mark span{color:#EDE8E0;font-size:19px}
 .powered{display:inline-flex;align-items:center;gap:12px}
-.powered img{height:30px;width:auto}
-footer a{text-decoration:none}
-footer a:hover{color:var(--paper)}
+.powered img{height:28px;width:auto}
+footer a{text-decoration:none;transition:color .3s}
+footer a:hover{color:#EDE8E0}
 
-dialog{border:0;padding:0;background:transparent;max-width:min(1600px,96vw);max-height:94vh}
-dialog::backdrop{background:rgba(12,12,12,.9)}
-dialog img{max-height:90vh;width:auto;border-radius:10px}
-dialog button{position:fixed;top:20px;left:20px;width:48px;height:48px;border-radius:50%;border:0;background:var(--paper);color:var(--ink);font-size:24px;cursor:pointer}
-
-.rv{opacity:0;transform:translateY(28px)}
+.rv{opacity:0;transform:translateY(24px)}
 .static .rv{opacity:1;transform:none}
 
 @media (max-width:980px){
+  section{padding:110px 0}
   .nav-links a:not(.btn){display:none}
-  .hero{padding-top:120px}
-  .hero-top,.sec-title,.req-grid,.adapt-grid{grid-template-columns:1fr}
-  .hero-band{margin-top:48px;border-radius:20px}
-  .facts{grid-template-columns:1fr 1fr;row-gap:10px}
-  .show{grid-template-columns:1fr}
-  .show-stage{display:none}
-  .item{min-height:0;opacity:1;padding:30px 0;border-top:1px solid var(--rule)}
-  .item .m-shot{display:block;margin-top:12px;background:var(--night);border-radius:16px;padding:8px}
-  .item .m-shot img{border-radius:10px}
-  .r{grid-template-columns:44px 1fr}
-  .r p{grid-column:2}
-  .steps{grid-template-columns:1fr 1fr}
+  .hero{padding-top:140px}
+  .stage{margin-top:70px;border-radius:22px}
+  .pillars-head,.brand-grid,.roles-grid,.faq-grid,.req-grid{grid-template-columns:1fr}
+  .pillars{grid-template-columns:1fr}
+  .pillar,.pillar + .pillar{padding:32px 0;border-inline-start:0;border-bottom:1px solid var(--rule)}
+  .feats{grid-template-columns:1fr 1fr;margin-top:70px}
+  .plans{grid-template-columns:1fr}
   .req-copy{position:static}
-  .adapt,.features,.roles{padding:90px 0 30px}
+  .role{grid-template-columns:1fr;gap:6px}
 }
-@media (max-width:560px){
-  .two,.steps{grid-template-columns:1fr}
-  .hero-side .btn{width:100%}
-  .facts strong{font-size:32px}
+@media (max-width:600px){
+  .wrap{width:min(1200px,100% - 32px)}
+  .feats,.two{grid-template-columns:1fr}
+  .hero .acts .btn{width:100%}
+  .mock{grid-template-columns:1fr;aspect-ratio:auto}
+  .m-side{display:none}
 }
 </style>
 </head>
 <body>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="logo" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" style="fill:var(--mk-bg)"/><rect x="14" y="38" width="8" height="12" rx="2" style="fill:var(--mk-bar)"/><rect x="28" y="28" width="8" height="22" rx="2" style="fill:var(--mk-bar)"/><rect x="42" y="16" width="8" height="34" rx="2" style="fill:var(--mk-hi)"/></symbol></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" style="fill:var(--mk-bg)"/><rect x="14" y="38" width="8" height="12" rx="2" style="fill:var(--mk-bar)"/><rect x="28" y="28" width="8" height="22" rx="2" style="fill:var(--mk-bar)"/><rect x="42" y="16" width="8" height="34" rx="2" style="fill:var(--mk-hi)"/></symbol>
+  <symbol id="ck" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="arr" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
 
 <header class="nav" id="nav">
   <div class="wrap">
-    <a class="mark" href="#top" aria-label="أداء، أعلى الصفحة"><svg aria-hidden="true"><use href="#logo"/></svg><span>أداء</span></a>
+    <a class="mark" href="#top" aria-label="أداء"><svg aria-hidden="true"><use href="#logo"/></svg><span>أداء</span></a>
     <nav class="nav-links" aria-label="أقسام الصفحة">
-      <a href="#adapt">هوية شركتك</a>
-      <a href="#features">المزايا</a>
-      <a href="#roles">الصلاحيات</a>
-      <a class="btn solid" href="#request">اطلب النظام</a>
+      <a href="#product">المنتج</a>
+      <a href="#brand">هويتك</a>
+      <a href="#plans">الباقات</a>
+      <a href="#faq">الأسئلة</a>
+      <a class="btn solid" href="#request">اطلب عرض</a>
     </nav>
   </div>
 </header>
 
 <main id="top">
-  <section class="hero">
+  <section class="hero" style="padding-bottom:0">
     <div class="wrap">
-      <div class="hero-top">
-        <h1 class="d"><span><i>اكتب الخطة بأسلوبك،</i></span><span><i>والفريق <span class="o" style="display:inline;overflow:visible;padding:0">يمشي عليها.</span></i></span></h1>
-        <div class="hero-side">
-          <span class="label rv"><b></b>أداء · نظام متابعة أداء الفريق</span>
-          <p class="rv">يحوّل خطة الشهر لمهام موزعة على كل موظف، يتابع التسليم والمواعيد والجودة، ويطلع تقييم واضح لكل شخص وكل قسم. ويلبس هوية شركتك.</p>
-          <div class="rv"><a class="btn solid" href="#request">اطلب نظام متابعة أداء لموظفينك الآن<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a></div>
-        </div>
+      <span class="kicker rv">نظام متابعة أداء الفريق</span>
+      <h1 class="h"><span><i>خطة واضحة، فريق ملتزم،</i></span><span><i>وأداء تقدر تقيسه.</i></span></h1>
+      <p class="lead rv">أداء يحوّل خطة الشهر لمهام موزعة على فريقك، يتابع التسليم والمواعيد والجودة يوم بيوم، ويطلع لك تقييم واضح لكل شخص وكل قسم. ويتجهز بهوية شركتك.</p>
+      <div class="acts rv">
+        <a class="btn solid" href="#request">اطلب نظام متابعة أداء لموظفينك الآن<svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
+        <a class="btn" href="#product">تعرّف على المنتج</a>
       </div>
-      <div class="hero-band rv">
-        <div class="cap"><span><b>مطبّق في صيت</b> · بهوية صيت الكاملة</span><span>جولة داخل النظام · 45 ثانية</span></div>
-        <figure class="shot vid">
-          <video id="demo" muted loop playsinline preload="metadata" poster="video/poster.jpg" aria-label="عرض للنظام: كتابة مهام بأسلوب حر، اعتمادها، لوحة المهام، والمحلل"><source src="video/demo.webm" type="video/webm"></video>
+      <div class="stage rv">
+        <div class="stage-top"><span><b>جولة داخل النظام</b> · نسخة صيت</span><span>45 ثانية</span></div>
+        <figure class="vid">
+          <video id="demo" muted loop playsinline preload="metadata" poster="video/poster.jpg" aria-label="عرض للنظام: كتابة مهام بأسلوب حر، اعتمادها، لوحة المهام والتحليل"><source src="video/demo.webm" type="video/webm"></video>
           <button type="button" class="vid-ctl" id="vidCtl" aria-label="إيقاف الفيديو"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-pause" d="M8 5v14M16 5v14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path class="i-play" d="M8 5l11 7-11 7z" fill="currentColor"/></svg></button>
         </figure>
       </div>
-      <div class="facts">
-        <div class="rv"><strong>4</strong><span>مستويات صلاحية، من مدير النظام إلى العضو</span></div>
-        <div class="rv"><strong>PDF</strong><span>الخطة تنرفع PDF أو Word أو Excel أو صورة</span></div>
-        <div class="rv"><strong>عربي</strong><span>يفهم «بكرة» و«الخميس» و«بعد 3 أيام»</span></div>
-        <div class="rv"><strong>$2</strong><span>سقف شهري ثابت لتكلفة تحليل الملفات</span></div>
+      <div class="trust rv"><span>يعمل اليوم في</span><span class="chip"><img src="img/logo.png" alt="صيت">وكالة صيت للتسويق</span></div>
+    </div>
+  </section>
+
+  <section id="product">
+    <div class="wrap">
+      <div class="pillars-head">
+        <h2 class="h rv">ثلاث خطوات تختصر شهر كامل من المتابعة</h2>
+        <p class="rv">بدل الجداول والقروبات والسؤال اليومي «وش صار؟». كل مهمة لها صاحب وموعد وحالة، وكل شهر ينتهي بأرقام واضحة.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar rv"><span class="n">01</span><h3>خطّط</h3><p>ارفع خطة الشهر أو اكتبها بأسلوبك: «لينا تطلق الحملة الخميس». تتحول لمهام موزعة حسب التخصص وضغط العمل، تراجعها وتعتمدها.</p></div>
+        <div class="pillar rv"><span class="n">02</span><h3>تابع</h3><p>الفريق يحدّث مهامه، وأنت تعتمد التسليم وتقيّم جودته. النظام ينبهك على المتأخر والمضغوط، ويتوقع وين بيقفل الشهر.</p></div>
+        <div class="pillar rv"><span class="n">03</span><h3>قيّم</h3><p>آخر الشهر، تقييم كل موظف جاهز بمعادلة واضحة: الإنجاز والمواعيد والجودة والمبادرة. تعدّل الملاحظة وتعتمد، ويوصلهم.</p></div>
+      </div>
+
+      <div class="feats">
+        <div class="feat rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg><h4>يقرأ ملف الخطة</h4><p>PDF أو Word أو Excel أو صورة، ويطلع منها المهام ويوزعها.</p></div>
+        <div class="feat rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h7"/></svg><h4>يفهم العربي</h4><p>«بكرة»، «الخميس»، «بعد 3 أيام»، «نهاية الأسبوع». تكتب مثل ما تتكلم.</p></div>
+        <div class="feat rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16"/></svg><h4>لوحة مهام</h4><p>جديدة، قيد التنفيذ، بانتظار المراجعة، مكتملة. لكل الفريق أو لكل شخص.</p></div>
+        <div class="feat rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-5h6v5"/></svg><h4>أقسام تُقاس</h4><p>كل قسم له إنجازه والتزامه وجودته، ورئيس القسم يدير قسمه.</p></div>
+        <div class="feat rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><h4>أسباب التأخير</h4><p>التأخير بسبب العميل أو المورد يتسجل وما ينحسب على الموظف.</p></div>
+        <div class="feat rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 5-6"/></svg><h4>أنماط وتوقعات</h4><p>أي يوم يكثر فيه التأخير، أي عميل يأخر الفريق، ووين بيقفل الشهر.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="adapt" id="adapt">
-    <div class="wrap adapt-grid">
+  <section class="brand-sec" id="brand">
+    <div class="wrap brand-grid">
       <div>
-        <span class="label rv"><b></b>هوية شركتك</span>
-        <h2 class="d rv" style="margin-top:16px">نظام واحد، يلبس هوية كل شركة</h2>
-        <p class="rv">الشعار والألوان والخطوط والأقسام والرتب، كلها تتجهز على شركتك. اللي تشوفه في الصور هو أداء بعد ما أخذ هوية صيت بالكامل.</p>
-        <div class="brands">
-          <div class="brand on rv"><span class="sw" aria-hidden="true"><i style="background:#0d0907"></i><i style="background:#d8c4a6"></i><i style="background:#a9c7e8"></i></span><span><b>صيت</b><small>بني داكن · رملي · أزرق</small></span><span class="tag">مطبّق</span></div>
-          <div class="brand rv"><span class="sw" aria-hidden="true"><i style="background:#121212"></i><i style="background:#F1EEE8"></i><i style="background:#F59A1B"></i></span><span><b>أداء</b><small>الهوية الأساسية</small></span><span class="tag soft">افتراضي</span></div>
-          <div class="brand rv"><span class="sw" aria-hidden="true"><i style="background:#E7E2D8"></i><i style="background:#D4CEC4"></i><i style="background:#C7C0B4"></i></span><span><b>شركتك</b><small>ألوانك وشعارك</small></span><span class="tag soft">التالية</span></div>
+        <span class="kicker rv">هويتك</span>
+        <h2 class="h rv" style="margin-top:18px">نفس النظام، بهوية شركتك</h2>
+        <p class="rv">الشعار والألوان والخطوط والأقسام والرتب تتجهز على شركتك، وعلى دومينك. فريقك يحس إنه نظامهم من أول يوم. جرّب:</p>
+        <div class="picker rv" role="group" aria-label="اختر هوية">
+          <button type="button" class="pick" data-t="seet" aria-pressed="true"><i style="background:#d8c4a6"></i>صيت</button>
+          <button type="button" class="pick" data-t="ada" aria-pressed="false"><i style="background:#F59A1B"></i>أداء</button>
+          <button type="button" class="pick" data-t="corp" aria-pressed="false"><i style="background:#1F5EFF"></i>شركة تقنية</button>
+          <button type="button" class="pick" data-t="green" aria-pressed="false"><i style="background:#1F7A55"></i>شركة أغذية</button>
         </div>
       </div>
-      <figure class="adapt-shot zoom rv" data-full="img/depts.jpg"><img src="img/depts.jpg" alt="صفحة الأقسام في نسخة صيت" loading="lazy"></figure>
-    </div>
-  </section>
-
-  <section class="features" id="features">
-    <div class="wrap">
-      <div class="sec-title">
-        <h2 class="d rv">من الخطة إلى التقييم، في مكان واحد</h2>
-        <p class="rv">بدل الجداول والقروبات والمتابعة اليدوية. كل مهمة لها صاحب وموعد وحالة، وكل شهر ينتهي بأرقام واضحة.</p>
-      </div>
-      <div class="show">
-        <div class="show-list">
-          <article class="item" data-i="0">
-            <span class="k">الخطة</span>
-            <h3>تكتب كأنك تكلم الفريق، وتطلع مهام</h3>
-            <p>«لينا تطلق حملة سناب الخميس، ودانة تصور المنيو بكرة». كل جملة فيها اسم تصير مهمة لصاحبها بموعدها، وتراجعها قبل ما توصل.</p>
-            <ul><li>بدون اسم؟ يختار الأنسب حسب التخصص وضغط الشغل</li><li>أو ترفع ملف الخطة ويتحلل ويتوزع</li></ul>
-            <figure class="m-shot" style="margin:0"><img src="img/compose-full.jpg" alt="تحويل الكلام لمهام مقترحة" loading="lazy"></figure>
-          </article>
-          <article class="item" data-i="1">
-            <span class="k">المهام</span>
-            <h3>لوحة مهام يعرف فيها كل واحد وش عليه</h3>
-            <p>جديدة، قيد التنفيذ، بانتظار المراجعة، مكتملة. الموظف يسلّم، والقائد يعتمد ويقيّم الجودة من 5.</p>
-            <ul><li>سبب التأخير يتسجل، والتأخير بسبب العميل أو المورد ما ينحسب على الموظف</li></ul>
-            <figure class="m-shot" style="margin:0"><img src="img/tasks.jpg" alt="لوحة المهام" loading="lazy"></figure>
-          </article>
-          <article class="item" data-i="2">
-            <span class="k">المتابعة</span>
-            <h3>يقرأ الأرقام بدالك</h3>
-            <p>توقع لنسبة الإنجاز آخر الشهر، تنبيه على المتأخر والمضغوط، واقتراح تنقل مهمة لأخف واحد. ومن آخر 6 أشهر يطلع الأنماط: أي يوم يكثر فيه التأخير، وأي عميل يأخر الفريق.</p>
-            <figure class="m-shot" style="margin:0"><img src="img/analyst.jpg" alt="تحليل الأداء والتنبيهات" loading="lazy"></figure>
-          </article>
-          <article class="item" data-i="3">
-            <span class="k">الموظف</span>
-            <h3>ملف أداء لكل شخص</h3>
-            <p>الإنجاز والالتزام ومتوسط الجودة والمنجز كل أسبوع، وسجل كل مهمة: قبل الموعد، بالموعد، أو متأخرة ولماذا.</p>
-            <figure class="m-shot" style="margin:0"><img src="img/member.jpg" alt="ملف أداء موظف" loading="lazy"></figure>
-          </article>
-          <article class="item" data-i="4">
-            <span class="k">التقييم</span>
-            <h3>تقييم الشهر جاهز تعتمده</h3>
-            <p>الإنجاز والمواعيد والجودة والمبادرة بأوزان تحددها. الملاحظة تنكتب لك كمسودة، تعدلها وتعتمدها، ويوصل لكل موظف تقييمه ويطبعه.</p>
-            <ul><li>بدون نقاط ولا مسابقات، قياس أداء بس</li><li>ما أحد يقيّم نفسه</li></ul>
-            <figure class="m-shot" style="margin:0"><img src="img/reviews.jpg" alt="التقييمات الشهرية" loading="lazy"></figure>
-          </article>
-        </div>
-        <div class="show-stage">
-          <div class="stage-box">
-            <figure class="zoom on" data-full="img/compose-full.jpg"><img class="low" src="img/compose-full.jpg" alt="تحويل الكلام لمهام مقترحة"></figure>
-            <figure class="zoom" data-full="img/tasks.jpg"><img src="img/tasks.jpg" alt="لوحة المهام" loading="lazy"></figure>
-            <figure class="zoom" data-full="img/analyst.jpg"><img src="img/analyst.jpg" alt="تحليل الأداء" loading="lazy"></figure>
-            <figure class="zoom" data-full="img/member.jpg"><img src="img/member.jpg" alt="ملف موظف" loading="lazy"></figure>
-            <figure class="zoom" data-full="img/reviews.jpg"><img src="img/reviews.jpg" alt="التقييمات" loading="lazy"></figure>
+      <div class="mock rv" id="mock" aria-hidden="true">
+        <div class="m-main">
+          <div class="m-head"><b>أهلاً نورة</b><span class="m-btn">رفع الخطة</span></div>
+          <div class="m-kpis">
+            <div class="m-kpi"><small>إنجاز الخطة</small><strong>68%</strong><span class="m-bar"><i style="width:68%"></i></span></div>
+            <div class="m-kpi"><small>المواعيد</small><strong>91%</strong><span class="m-bar"><i style="width:91%"></i></span></div>
+            <div class="m-kpi"><small>الجودة</small><strong>4.6</strong><span class="m-bar"><i style="width:92%"></i></span></div>
           </div>
-          <div class="stage-meta"><span id="stageName">الخطة</span><span class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i><i></i></span></div>
+          <div class="m-list">
+            <div class="m-row"><span class="av"></span><span class="t">نورة السالم</span><span class="bar"><i style="width:80%"></i></span><span class="p">80%</span></div>
+            <div class="m-row"><span class="av b"></span><span class="t">لينا</span><span class="bar"><i style="width:64%"></i></span><span class="p">64%</span></div>
+            <div class="m-row"><span class="av"></span><span class="t">دانة</span><span class="bar"><i style="width:72%"></i></span><span class="p">72%</span></div>
+            <div class="m-row"><span class="av b"></span><span class="t">فهد</span><span class="bar"><i style="width:55%"></i></span><span class="p">55%</span></div>
+          </div>
+        </div>
+        <div class="m-side"><div class="m-logo" id="mLogo">صيت</div><div class="m-nav on"><span></span></div><div class="m-nav"><span></span></div><div class="m-nav"><span></span></div><div class="m-nav"><span></span></div><div class="m-nav"><span></span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="roles">
+    <div class="wrap roles-grid">
+      <div class="intro">
+        <span class="kicker rv">الصلاحيات والأمان</span>
+        <h2 class="h rv" style="margin-top:18px">كل شخص يشوف اللي يخصه</h2>
+        <p class="rv">الصلاحيات مطبّقة على مستوى قاعدة البيانات نفسها، مو بس الواجهة. والموظف يسجّل بنفسه ولا يدخل إلا بعد موافقة مدير النظام.</p>
+      </div>
+      <div>
+        <div class="role rv"><b>مدير النظام</b><p>يوافق على الموظفين، يحدد الرتب والأقسام، ويضبط معادلة التقييم.</p></div>
+        <div class="role rv"><b>القائد</b><p>يرفع الخطة، يوزّع المهام، يعتمد التسليم، ويصدر التقييمات للفريق كله.</p></div>
+        <div class="role rv"><b>رئيس القسم</b><p>نفس الأدوات، على قسمه فقط.</p></div>
+        <div class="role rv"><b>العضو</b><p>مهامه وأداؤه وتقييمه الشهري.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="plans" style="padding-top:40px">
+    <div class="wrap">
+      <div class="plans-head">
+        <span class="kicker rv">الباقات</span>
+        <h2 class="h rv" style="margin-top:18px">باقة تناسب حجم فريقك</h2>
+        <p class="rv">السعر حسب عدد الموظفين ونوع التجهيز. اطلب عرض ونرجع لك بالتفاصيل.</p>
+      </div>
+      <div class="plans">
+        <div class="plan rv">
+          <div class="name">الأساسية</div><div class="for">للفرق الصغيرة</div>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#ck"/></svg>المهام والمتابعة ولوحة القيادة</li>
+            <li><svg aria-hidden="true"><use href="#ck"/></svg>كتابة المهام بأسلوب حر</li>
+            <li><svg aria-hidden="true"><use href="#ck"/></svg>الصلاحيات وموافقة الموظفين</li>
+            <li><svg aria-hidden="true"><use href="#ck"/></svg>التقييم الشهري</li>
+          </ul>
+          <a class="btn" href="#request" data-plan="الأساسية">اطلب عرض</a>
+        </div>
+        <div class="plan pro rv">
+          <span class="badge">الأشمل</span>
+          <div class="name">الاحترافية</div><div class="for">للشركات متعددة الأقسام</div>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#ck"/></svg>كل ما في الأساسية</li>
+            <li><svg aria-hidden="true"><use href="#ck"/></svg>الأقسام ورؤساء الأقسام</li>
+            <li><svg aria-hidden="true"><use href="#ck"/></svg>تحليل ملفات الخطة بالذكاء الاصطناعي</li>
+            <li><svg aria-hidden="true"><use href="#ck"/></svg>هوية شركتك على النظام</li>
+            <li><svg aria-hidden="true"><use href="#ck"/></svg>التوقعات والأنماط</li>
+          </ul>
+          <a class="btn" href="#request" data-plan="الاحترافية">اطلب عرض</a>
+        </div>
+        <div class="plan rv">
+          <div class="name">المؤسسات</div><div class="for">لاحتياجات خاصة</div>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#ck"/></svg>كل ما في الاحترافية</li>
+            <li><svg aria-hidden="true"><use href="#ck"/></svg>على دومين شركتك</li>
+            <li><svg aria-hidden="true"><use href="#ck"/></svg>تخصيصات حسب طريقة شغلكم</li>
+            <li><svg aria-hidden="true"><use href="#ck"/></svg>تجهيز وتدريب للفريق</li>
+          </ul>
+          <a class="btn" href="#request" data-plan="المؤسسات">اطلب عرض</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="roles" id="roles">
-    <div class="wrap">
-      <div class="sec-title">
-        <h2 class="d rv">كل واحد يشوف اللي يخصه</h2>
-        <p class="rv">الصلاحيات محمية في قاعدة البيانات نفسها. والموظف يسجل بنفسه، وما يدخل إلا بعد موافقة مدير النظام.</p>
-      </div>
-      <div class="roles-table">
-        <div class="r rv"><span class="n">01</span><b>مدير النظام</b><p>يوافق على الموظفين الجدد، يحدد الرتب والأقسام، ويضبط معادلة التقييم.</p></div>
-        <div class="r rv"><span class="n">02</span><b>القائد</b><p>يرفع الخطة، يوزع المهام، يعتمد التسليمات، ويصدر التقييمات للفريق كله.</p></div>
-        <div class="r rv"><span class="n">03</span><b>رئيس القسم</b><p>نفس الأدوات، على قسمه فقط.</p></div>
-        <div class="r rv"><span class="n">04</span><b>العضو</b><p>مهامه وأداؤه وتقييمه، ويحرك مهمته من «بدأت» إلى «سلّمتها».</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="how" id="how">
-    <div class="wrap">
-      <h2 class="d rv" style="font-size:clamp(36px,4.8vw,72px)">شهر كامل، أربع خطوات</h2>
-      <div class="steps">
-        <div class="step rv"><span class="n">1</span><b>ارفع الخطة</b><p>الصقها، اكتبها بأسلوبك، أو ارفع الملف.</p></div>
-        <div class="step rv"><span class="n">2</span><b>راجع واعتمد</b><p>المهام تطلع موزعة مع سبب كل اختيار.</p></div>
-        <div class="step rv"><span class="n">3</span><b>تابع</b><p>الفريق يسلّم، وأنت تعتمد وتقيّم وتتنبه للمتأخر.</p></div>
-        <div class="step rv"><span class="n">4</span><b>قيّم</b><p>آخر الشهر، التقييمات جاهزة توصلهم.</p></div>
+  <section id="faq" style="padding-top:40px">
+    <div class="wrap faq-grid">
+      <h2 class="h rv">أسئلة متكررة</h2>
+      <div>
+        <details class="rv"><summary>هل يقدر النظام يكون بهوية شركتنا؟<span class="pm" aria-hidden="true"></span></summary><p>إيه. الشعار والألوان والخطوط والأقسام والرتب تتجهز على شركتك، ويشتغل على دومين خاص فيكم.</p></details>
+        <details class="rv"><summary>مين يشوف بيانات الموظفين؟<span class="pm" aria-hidden="true"></span></summary><p>كل شخص يشوف اللي يخصه حسب رتبته. الصلاحيات محمية في قاعدة البيانات، وما أحد يدخل إلا بموافقة مدير النظام.</p></details>
+        <details class="rv"><summary>هل يحتاج الفريق تدريب؟<span class="pm" aria-hidden="true"></span></summary><p>الواجهة عربية وبسيطة: الموظف يشوف مهامه ويحدّثها، والقائد يرفع الخطة ويعتمد. وفي باقة المؤسسات نجهز ونشرح للفريق.</p></details>
+        <details class="rv"><summary>هل الذكاء الاصطناعي يرفع التكلفة؟<span class="pm" aria-hidden="true"></span></summary><p>تحليل الملفات له سقف شهري ثابت ما يتعداه. والمتابعة والتنبيهات والتقييم محسوبة من بياناتكم مباشرة بدون تكلفة إضافية.</p></details>
+        <details class="rv"><summary>يشتغل على الجوال؟<span class="pm" aria-hidden="true"></span></summary><p>إيه، يشتغل على الجوال والكمبيوتر من المتصفح بدون تحميل تطبيق.</p></details>
       </div>
     </div>
   </section>
@@ -336,9 +387,9 @@ dialog button{position:fixed;top:20px;left:20px;width:48px;height:48px;border-ra
   <section class="request" id="request">
     <div class="wrap req-grid">
       <div class="req-copy">
-        <span class="label"><b></b>ابدأ</span>
-        <h2 class="d rv">اطلب نظام متابعة أداء <span class="o">لموظفينك الآن</span></h2>
-        <p class="grey rv">نجهزه على هوية شركتك، بأقسامك وفريقك ودومينك. عبّ الطلب ويوصلنا على الواتساب مباشرة.</p>
+        <span class="kicker">ابدأ</span>
+        <h2 class="h rv">اطلب نظام متابعة أداء لموظفينك الآن</h2>
+        <p class="rv">عبّ الطلب ويوصلنا على الواتساب مباشرة. نرجع لك بعرض يناسب فريقك.</p>
       </div>
       <form id="req" novalidate>
         <div class="two">
@@ -346,18 +397,26 @@ dialog button{position:fixed;top:20px;left:20px;width:48px;height:48px;border-ra
           <div class="f"><label for="fCo">الشركة</label><input id="fCo" name="company" required autocomplete="organization"></div>
         </div>
         <div class="f">
-          <span class="grey" style="font-size:13px" id="sizeL">عدد الموظفين</span>
-          <div class="sizes" role="radiogroup" aria-labelledby="sizeL">
+          <span class="lbl" id="sizeL">عدد الموظفين</span>
+          <div class="opts" role="radiogroup" aria-labelledby="sizeL">
             <input type="radio" name="size" id="s1" value="أقل من 10" checked><label for="s1">أقل من 10</label>
             <input type="radio" name="size" id="s2" value="10 – 30"><label for="s2">10 – 30</label>
             <input type="radio" name="size" id="s3" value="30 – 100"><label for="s3">30 – 100</label>
             <input type="radio" name="size" id="s4" value="أكثر من 100"><label for="s4">أكثر من 100</label>
           </div>
         </div>
-        <div class="f"><label for="fSec">القطاع</label><input id="fSec" name="sector" placeholder="تسويق، مطاعم، مقاولات…"></div>
-        <div class="f"><label for="fNotes">وش أهم شي تبيه في النظام؟</label><textarea id="fNotes" name="notes" rows="3"></textarea></div>
+        <div class="f">
+          <span class="lbl" id="planL">الباقة</span>
+          <div class="opts" role="radiogroup" aria-labelledby="planL">
+            <input type="radio" name="plan" id="p0" value="ما حددت" checked><label for="p0">مو متأكد</label>
+            <input type="radio" name="plan" id="p1" value="الأساسية"><label for="p1">الأساسية</label>
+            <input type="radio" name="plan" id="p2" value="الاحترافية"><label for="p2">الاحترافية</label>
+            <input type="radio" name="plan" id="p3" value="المؤسسات"><label for="p3">المؤسسات</label>
+          </div>
+        </div>
+        <div class="f"><label for="fNotes">ملاحظات</label><textarea id="fNotes" name="notes" rows="3" placeholder="القطاع، أو أي شي يهمك في النظام"></textarea></div>
         <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
-          <button class="btn solid" type="submit">أرسل الطلب<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+          <button class="btn solid" type="submit">أرسل الطلب<svg class="arr" aria-hidden="true"><use href="#arr"/></svg></button>
           <p class="note" id="reqNote" role="status">يفتح في الواتساب جاهز للإرسال.</p>
         </div>
       </form>
@@ -373,8 +432,6 @@ dialog button{position:fixed;top:20px;left:20px;width:48px;height:48px;border-ra
   </div>
 </footer>
 
-<dialog id="lb"><button type="button" aria-label="إغلاق" id="lbClose">×</button><img id="lbImg" alt=""></dialog>
-
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -386,14 +443,19 @@ dialog button{position:fixed;top:20px;left:20px;width:48px;height:48px;border-ra
 
   var lenis = null;
   if (!reduced && window.Lenis) {
-    lenis = new Lenis({ lerp: .1 });
+    lenis = new Lenis({ lerp: .09 });
     var raf = function (t) { lenis.raf(t); requestAnimationFrame(raf); };
     requestAnimationFrame(raf);
     lenis.on('scroll', onScroll);
-    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
-      a.addEventListener('click', function (e) { var t = document.querySelector(a.getAttribute('href')); if (t) { e.preventDefault(); lenis.scrollTo(t, { offset: -70 }); } });
-    });
   }
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var t = document.querySelector(a.getAttribute('href')); if (!t) return;
+      e.preventDefault();
+      if (a.dataset.plan) { var r = document.querySelector('input[name=plan][value="' + a.dataset.plan + '"]'); if (r) r.checked = true; }
+      if (lenis) lenis.scrollTo(t, { offset: -60 }); else t.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+    });
+  });
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
   if (reduced || !window.gsap) {
@@ -401,14 +463,13 @@ dialog button{position:fixed;top:20px;left:20px;width:48px;height:48px;border-ra
   } else {
     gsap.registerPlugin(ScrollTrigger);
     if (lenis) lenis.on('scroll', ScrollTrigger.update);
-    gsap.from('.hero h1 > span > i', { yPercent: 105, duration: 1.2, ease: 'power4.out', stagger: .12, delay: .15 });
-    gsap.to('.hero .rv', { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out', stagger: .1, delay: .5 });
+    gsap.from('.hero h1 span i', { yPercent: 105, duration: 1.3, ease: 'power4.out', stagger: .12, delay: .1 });
+    gsap.to('.hero .rv', { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', stagger: .1, delay: .45 });
     gsap.utils.toArray('.rv').filter(function (el) { return !el.closest('.hero'); }).forEach(function (el) {
-      gsap.to(el, { opacity: 1, y: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%' } });
+      gsap.to(el, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%' } });
     });
   }
 
-  // الفيديو: يشتغل لما يظهر، ويوقف لما يختفي أو لو المستخدم يفضّل تقليل الحركة
   var vid = document.getElementById('demo'), ctl = document.getElementById('vidCtl');
   var userPaused = reduced;
   var setCtl = function () { var p = vid.paused; ctl.classList.toggle('paused', p); ctl.setAttribute('aria-label', p ? 'تشغيل الفيديو' : 'إيقاف الفيديو'); };
@@ -416,44 +477,37 @@ dialog button{position:fixed;top:20px;left:20px;width:48px;height:48px;border-ra
   ctl.addEventListener('click', function () { if (vid.paused) { userPaused = false; vid.play(); } else { userPaused = true; vid.pause(); } });
   new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting && !userPaused) vid.play().catch(function () {}); else if (!e.isIntersecting) vid.pause(); }); }, { threshold: .1 }).observe(vid);
 
-  var items = document.querySelectorAll('.item');
-  var figs = document.querySelectorAll('.stage-box figure');
-  var dots = document.querySelectorAll('#dots i');
-  var name = document.getElementById('stageName');
-  var setActive = function (i) {
-    items.forEach(function (x, j) { x.classList.toggle('on', j === i); });
-    figs.forEach(function (x, j) { x.classList.toggle('on', j === i); });
-    dots.forEach(function (x, j) { x.classList.toggle('on', j === i); });
-    name.textContent = items[i].querySelector('.k').textContent;
+  var THEMES = {
+    seet: { bg: '#0d0907', side: '#090604', panel: '#140e0a', fg: '#efe7dc', mut: '#a8917c', ac: '#d8c4a6', ac2: '#a9c7e8', rad: '14px', logo: 'صيت', font: 'Amiri, Georgia, serif' },
+    ada: { bg: '#121212', side: '#0b0b0b', panel: '#1c1b1a', fg: '#F1EEE8', mut: '#9A948B', ac: '#F59A1B', ac2: '#F1EEE8', rad: '12px', logo: 'أداء', font: 'Alexandria, sans-serif' },
+    corp: { bg: '#F4F7FF', side: '#FFFFFF', panel: '#FFFFFF', fg: '#0B1B3F', mut: '#6B7896', ac: '#1F5EFF', ac2: '#7FA3FF', rad: '10px', logo: 'نواة', font: 'Alexandria, sans-serif' },
+    green: { bg: '#F3F1E9', side: '#E7E4D7', panel: '#FFFFFF', fg: '#1D2B22', mut: '#6E7A70', ac: '#1F7A55', ac2: '#D9A441', rad: '18px', logo: 'مزارع', font: 'Alexandria, sans-serif' }
   };
-  var io = new IntersectionObserver(function (ents) {
-    ents.forEach(function (e) { if (e.isIntersecting) setActive(Number(e.target.dataset.i)); });
-  }, { rootMargin: '-45% 0px -45% 0px' });
-  items.forEach(function (x) { io.observe(x); });
-  setActive(0);
-
-  var lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg');
-  document.querySelectorAll('.zoom').forEach(function (s) {
-    s.setAttribute('tabindex', '0'); s.setAttribute('role', 'button'); s.setAttribute('aria-label', 'تكبير الصورة');
-    var open = function () { var im = s.querySelector('img'); lbImg.src = s.dataset.full; lbImg.alt = im.alt; if (lenis) lenis.stop(); lb.showModal(); };
-    s.addEventListener('click', open);
-    s.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+  var mock = document.getElementById('mock'), mLogo = document.getElementById('mLogo');
+  var apply = function (k) {
+    var t = THEMES[k];
+    ['bg', 'side', 'panel', 'fg', 'mut', 'ac', 'ac2', 'rad'].forEach(function (p) { mock.style.setProperty('--' + p, t[p]); });
+    mLogo.textContent = t.logo; mLogo.style.fontFamily = t.font;
+  };
+  document.querySelectorAll('.pick').forEach(function (b) {
+    b.addEventListener('click', function () {
+      apply(b.dataset.t);
+      document.querySelectorAll('.pick').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    });
   });
-  lb.addEventListener('close', function () { if (lenis) lenis.start(); });
-  document.getElementById('lbClose').addEventListener('click', function () { lb.close(); });
-  lb.addEventListener('click', function (e) { if (e.target === lb) lb.close(); });
+  apply('seet');
 
   document.getElementById('req').addEventListener('submit', function (e) {
     e.preventDefault();
     var f = e.target, note = document.getElementById('reqNote');
     if (!f.name.value.trim() || !f.company.value.trim()) { note.textContent = 'اكتب اسمك واسم الشركة.'; note.style.color = '#F59A1B'; (f.name.value.trim() ? f.company : f.name).focus(); return; }
-    var size = f.querySelector('input[name=size]:checked');
-    var msg = 'السلام عليكم، أبي نظام «أداء» لمتابعة أداء الموظفين.\n' +
+    var pick = function (n) { var x = f.querySelector('input[name=' + n + ']:checked'); return x ? x.value : ''; };
+    var msg = 'السلام عليكم، أبي عرض لنظام «أداء» لمتابعة أداء الموظفين.\n' +
       'الاسم: ' + f.name.value.trim() + '\n' +
       'الشركة: ' + f.company.value.trim() + '\n' +
-      'عدد الموظفين: ' + (size ? size.value : '') + '\n' +
-      (f.sector.value.trim() ? 'القطاع: ' + f.sector.value.trim() + '\n' : '') +
-      (f.notes.value.trim() ? 'الملاحظات: ' + f.notes.value.trim() : '');
+      'عدد الموظفين: ' + pick('size') + '\n' +
+      'الباقة: ' + pick('plan') + '\n' +
+      (f.notes.value.trim() ? 'ملاحظات: ' + f.notes.value.trim() : '');
     window.open('https://wa.me/966533347092?text=' + encodeURIComponent(msg), '_blank', 'noopener');
     note.textContent = 'انفتح الواتساب، اضغط إرسال هناك.'; note.style.color = '';
   });

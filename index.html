@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>نظام متابعة أداء الفريق — صيت</title>
+<meta name="description" content="نظام عربي لمتابعة أداء الموظفين: اكتب الخطة بأسلوبك وتتحول لمهام موزعة، لوحة مهام، أقسام وصلاحيات، تحليل للأداء وتقييم شهري.">
+<meta name="theme-color" content="#0d0907">
+<meta property="og:title" content="نظام متابعة أداء الفريق — صيت">
+<meta property="og:description" content="اكتب الخطة بأسلوبك، والنظام يوزّعها ويتابع الأداء ويطلع التقييم.">
+<meta property="og:image" content="img/dash.jpg">
+<link rel="icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.css">
+<style>
+:root{--ink:#0d0907;--panel:#140e0a;--line:rgba(216,196,166,.14);--line2:rgba(216,196,166,.3);--cream:#efe7dc;--muted:#a8917c;--sand:#d8c4a6;--ease:cubic-bezier(.22,1,.36,1)}
+*{box-sizing:border-box}
+html{overflow-x:clip}
+body{margin:0;background:var(--ink);color:var(--cream);font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%;display:block}
+::selection{background:var(--sand);color:var(--ink)}
+.wrap{width:min(1280px,100% - 40px);margin-inline:auto}
+.serif{font-family:Amiri,serif;font-weight:700;line-height:1.12;margin:0;letter-spacing:0}
+.num{font-family:"Cormorant Garamond",serif;font-weight:600;font-variant-numeric:lining-nums;line-height:1}
+.muted{color:var(--muted)}
+.label{font-size:13px;color:var(--sand)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:0 28px;border-radius:999px;font:500 16px "IBM Plex Sans Arabic",sans-serif;text-decoration:none;border:1px solid var(--line2);color:var(--cream);background:transparent;cursor:pointer;transition:background .3s,border-color .3s,color .3s}
+.btn:hover{border-color:var(--cream)}
+.btn.solid{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.btn.solid:hover{background:var(--sand);border-color:var(--sand)}
+.btn .arr{width:18px;height:18px;transition:transform .35s var(--ease)}
+.btn:hover .arr{transform:translateX(-4px)}
+.link{text-decoration:none;background:linear-gradient(currentColor,currentColor) 100% 100%/0 1px no-repeat;transition:background-size .4s var(--ease)}
+.link:hover{background-size:100% 1px}
+
+/* شريط علوي */
+.nav{position:fixed;inset-inline:0;top:0;z-index:30;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+.nav.solid{background:rgba(13,9,7,.9);border-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:78px;gap:20px}
+.nav img{height:40px;width:auto}
+.nav-links{display:flex;align-items:center;gap:30px;font-size:14px;color:var(--muted)}
+.nav-links a:not(.btn){text-decoration:none}
+.nav-links a:not(.btn):hover{color:var(--cream)}
+.nav .btn{min-height:42px;padding:0 20px;font-size:14px}
+
+/* الافتتاحية */
+.hero{padding:160px 0 0}
+.hero-top{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:40px;align-items:end}
+.hero h1{font-size:clamp(48px,7vw,112px)}
+.hero h1 span{display:block;overflow:hidden;padding-bottom:.06em}
+.hero h1 span i{display:block;font-style:normal}
+.hero h1 .soft{color:var(--sand)}
+.hero-side{display:flex;flex-direction:column;gap:26px;padding-bottom:12px}
+.hero-side p{margin:0;font-size:18px;color:var(--muted)}
+.hero-side .acts{display:flex;flex-wrap:wrap;gap:12px}
+.hero-shot{margin-top:72px;margin-inline-end:calc((100vw - min(1280px,100vw - 40px)) / -2);position:relative}
+.frame{border-radius:14px;border:1px solid var(--line2);background:var(--panel);overflow:hidden;box-shadow:0 50px 120px -30px rgba(0,0,0,.75)}
+.hero-shot .frame{border-start-end-radius:0;border-end-end-radius:0;border-inline-end:0}
+.hero-shot img{width:100%;height:auto}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:80px;border-top:1px solid var(--line)}
+.facts div{padding:28px 0 0;padding-inline-end:24px;display:flex;flex-direction:column;gap:10px}
+.facts .num{font-size:44px;color:var(--sand)}
+.facts span{font-size:14px;color:var(--muted);max-width:26ch}
+
+/* المزايا: نص يتحرك وصورة ثابتة */
+.features{padding:150px 0 60px}
+.sec-title{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:40px;align-items:end;margin-bottom:90px}
+.sec-title h2{font-size:clamp(38px,5vw,72px)}
+.sec-title p{margin:0;color:var(--muted);font-size:17px}
+.show{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(30px,5vw,90px);align-items:start}
+.show-list{display:flex;flex-direction:column}
+.item{min-height:78vh;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:40px 0;opacity:.32;transition:opacity .5s var(--ease)}
+.item.on{opacity:1}
+.item .k{font-size:15px;color:var(--sand)}
+.item h3{font-family:Amiri,serif;font-size:clamp(30px,3vw,44px);line-height:1.25;margin:0}
+.item p{margin:0;color:var(--muted);font-size:17px}
+.item ul{margin:4px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:15px}
+.item li{padding-inline-start:18px;position:relative}
+.item li::before{content:"—";position:absolute;inset-inline-start:0;color:var(--sand)}
+.item .m-shot{display:none}
+.show-stage{position:sticky;top:max(110px, calc(50vh - 280px))}
+.stage-box{position:relative;aspect-ratio:1800/1200}
+.stage-box figure{position:absolute;inset:0;margin:0;opacity:0;transform:scale(.985);transition:opacity .6s var(--ease),transform .8s var(--ease);cursor:zoom-in}
+.stage-box figure.on{opacity:1;transform:none}
+.stage-box .frame{height:100%}
+.stage-box img{width:100%;height:100%;object-fit:cover;object-position:top}
+.stage-box img.low{object-position:center 78%}
+.stage-meta{display:flex;justify-content:space-between;margin-top:16px;font-size:13px;color:var(--muted)}
+.dots{display:flex;gap:6px}
+.dots i{width:22px;height:2px;background:var(--line2);transition:background .4s}
+.dots i.on{background:var(--sand)}
+
+/* الصلاحيات */
+.roles{padding:150px 0}
+.roles-table{border-top:1px solid var(--line)}
+.r{display:grid;grid-template-columns:90px minmax(0,3fr) minmax(0,6fr);gap:24px;padding:30px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.r .num{font-size:30px;color:var(--muted)}
+.r b{font-family:Amiri,serif;font-size:34px;font-weight:700;line-height:1.2}
+.r p{margin:0;color:var(--muted);font-size:17px}
+
+/* الخطوات */
+.how{padding:40px 0 150px}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;margin-top:70px}
+.step{display:flex;flex-direction:column;gap:12px;padding-top:22px;border-top:1px solid var(--line2)}
+.step .num{font-size:22px;color:var(--sand)}
+.step b{font-size:20px;font-weight:600}
+.step p{margin:0;color:var(--muted);font-size:15px}
+
+/* الطلب */
+.request{padding:130px 0 150px;border-top:1px solid var(--line);background:#0a0705}
+.req-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(30px,6vw,110px);align-items:start}
+.req-grid h2{font-size:clamp(42px,5.4vw,80px)}
+.req-copy{display:flex;flex-direction:column;gap:22px;position:sticky;top:120px}
+.req-copy p{margin:0;color:var(--muted);font-size:17px;max-width:42ch}
+.req-copy .wa{display:flex;flex-direction:column;gap:4px;margin-top:10px;font-size:14px;color:var(--muted)}
+.req-copy .wa a{font-size:20px;color:var(--cream);direction:ltr;text-align:right}
+form{display:flex;flex-direction:column;gap:26px}
+.f{display:flex;flex-direction:column;gap:4px}
+.f label{font-size:13px;color:var(--muted)}
+.f input,.f select,.f textarea{width:100%;border:0;border-bottom:1px solid var(--line2);background:transparent;color:var(--cream);padding:12px 0;font:400 19px "IBM Plex Sans Arabic",sans-serif;border-radius:0;transition:border-color .3s}
+.f select{appearance:none;cursor:pointer}
+.f select option{background:var(--panel)}
+.f textarea{resize:vertical;min-height:90px;line-height:1.7}
+.f input:focus,.f select:focus,.f textarea:focus{outline:0;border-bottom-color:var(--sand)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.sizes{display:flex;flex-wrap:wrap;gap:8px;padding-top:8px;position:relative}
+.sizes input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;inset-inline-start:0;top:0}
+.sizes label{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line2);font-size:15px;color:var(--cream);cursor:pointer;transition:all .25s}
+.sizes input:checked + label{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.sizes input:focus-visible + label{outline:2px solid var(--sand);outline-offset:2px}
+.note{font-size:13px;color:var(--muted);margin:0}
+
+footer{padding:34px 0;font-size:14px;color:var(--muted);border-top:1px solid var(--line)}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+footer img{height:34px;width:auto}
+
+dialog{border:0;padding:0;background:transparent;max-width:min(1600px,96vw);max-height:94vh}
+dialog::backdrop{background:rgba(5,3,2,.9)}
+dialog img{max-height:90vh;width:auto;border-radius:10px}
+dialog button{position:fixed;top:20px;left:20px;width:48px;height:48px;border-radius:50%;border:1px solid var(--line2);background:var(--panel);color:var(--cream);font-size:24px;cursor:pointer}
+
+.rv{opacity:0;transform:translateY(28px)}
+.static .rv{opacity:1;transform:none}
+
+@media (max-width:980px){
+  .nav-links a:not(.btn){display:none}
+  .hero{padding-top:130px}
+  .hero-top,.sec-title,.req-grid{grid-template-columns:1fr}
+  .hero-shot{margin-top:48px}
+  .facts{grid-template-columns:1fr 1fr;row-gap:10px}
+  .show{grid-template-columns:1fr}
+  .show-stage{display:none}
+  .item{min-height:0;opacity:1;padding:34px 0;border-top:1px solid var(--line)}
+  .item .m-shot{display:block;margin-top:12px}
+  .item .m-shot img{width:100%}
+  .r{grid-template-columns:50px 1fr;}
+  .r p{grid-column:2}
+  .steps{grid-template-columns:1fr 1fr}
+  .req-copy{position:static}
+  .features,.roles{padding:100px 0}
+}
+@media (max-width:560px){
+  .two,.steps{grid-template-columns:1fr}
+  .hero-side .acts .btn{width:100%}
+  .facts .num{font-size:34px}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" aria-label="صيت، أعلى الصفحة"><img src="img/logo.png" alt="صيت"></a>
+    <nav class="nav-links" aria-label="أقسام الصفحة">
+      <a href="#features">المزايا</a>
+      <a href="#roles">الصلاحيات</a>
+      <a href="#how">كيف يشتغل</a>
+      <a class="btn" href="#request">اطلب النظام</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-top">
+        <h1 class="serif"><span><i>اكتب الخطة بأسلوبك،</i></span><span><i class="soft">والفريق يمشي عليها.</i></span></h1>
+        <div class="hero-side">
+          <p class="rv">نظام متابعة أداء عربي من صيت. يحوّل خطة الشهر لمهام موزعة على كل موظف، يتابع التسليم والمواعيد والجودة، ويطلع لك تقييم واضح لكل شخص وكل قسم.</p>
+          <div class="acts rv">
+            <a class="btn solid" href="#request">اطلب نظام متابعة أداء لموظفينك الآن<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-shot rv">
+        <figure class="frame zoom" style="margin:0" data-full="img/dash.jpg">
+          <img src="img/dash.jpg" alt="لوحة القيادة: إنجاز الخطة، المهام بانتظار المراجعة، الالتزام بالمواعيد، إنجاز كل موظف وتنبيهات الأداء" width="1800" height="1475">
+        </figure>
+      </div>
+      <div class="facts">
+        <div class="rv"><span class="num">4</span><span>مستويات صلاحية، من مدير النظام إلى العضو</span></div>
+        <div class="rv"><span class="num">PDF</span><span>الخطة تنرفع PDF أو Word أو Excel أو صورة</span></div>
+        <div class="rv"><span class="num">عربي</span><span>يفهم «بكرة» و«الخميس» و«بعد 3 أيام»</span></div>
+        <div class="rv"><span class="num">$2</span><span>سقف شهري ثابت لتكلفة تحليل الملفات</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="wrap">
+      <div class="sec-title">
+        <h2 class="serif rv">من الخطة إلى التقييم، في مكان واحد</h2>
+        <p class="rv">بدل الجداول والقروبات والمتابعة اليدوية. كل مهمة لها صاحب وموعد وحالة، وكل شهر ينتهي بأرقام واضحة.</p>
+      </div>
+      <div class="show">
+        <div class="show-list">
+          <article class="item" data-i="0">
+            <span class="k">الخطة</span>
+            <h3>تكتب كأنك تكلم الفريق، وتطلع مهام</h3>
+            <p>«مرام تطلق حملة سناب الخميس، وزهرا تصور المنيو بكرة». كل جملة فيها اسم تصير مهمة لصاحبها بموعدها، وتراجعها قبل ما توصل.</p>
+            <ul><li>بدون اسم؟ يختار الأنسب حسب التخصص وضغط الشغل</li><li>أو ترفع ملف الخطة ويتحلل ويتوزع</li></ul>
+            <figure class="m-shot frame" style="margin:0"><img src="img/compose-full.jpg" alt="تحويل الكلام لمهام مقترحة" loading="lazy"></figure>
+          </article>
+          <article class="item" data-i="1">
+            <span class="k">المهام</span>
+            <h3>لوحة مهام يعرف فيها كل واحد وش عليه</h3>
+            <p>جديدة، قيد التنفيذ، بانتظار المراجعة، مكتملة. الموظف يسلّم، والقائد يعتمد ويقيّم الجودة من 5.</p>
+            <ul><li>سبب التأخير يتسجل، والتأخير بسبب العميل أو المورد ما ينحسب على الموظف</li></ul>
+            <figure class="m-shot frame" style="margin:0"><img src="img/tasks.jpg" alt="لوحة المهام" loading="lazy"></figure>
+          </article>
+          <article class="item" data-i="2">
+            <span class="k">المتابعة</span>
+            <h3>يقرأ الأرقام بدالك</h3>
+            <p>توقع لنسبة الإنجاز آخر الشهر، تنبيه على المتأخر والمضغوط، واقتراح تنقل مهمة لأخف واحد. ومن آخر 6 أشهر يطلع الأنماط: أي يوم يكثر فيه التأخير، وأي عميل يأخر الفريق.</p>
+            <figure class="m-shot frame" style="margin:0"><img src="img/analyst.jpg" alt="تحليل الأداء والتنبيهات" loading="lazy"></figure>
+          </article>
+          <article class="item" data-i="3">
+            <span class="k">الأقسام</span>
+            <h3>كل قسم له مؤشره</h3>
+            <p>إنجاز القسم والتزامه وجودة تسليمه. رئيس القسم يدير قسمه، والإدارة تشوف الصورة كاملة.</p>
+            <figure class="m-shot frame" style="margin:0"><img src="img/depts.jpg" alt="أداء الأقسام" loading="lazy"></figure>
+          </article>
+          <article class="item" data-i="4">
+            <span class="k">الموظف</span>
+            <h3>ملف أداء لكل شخص</h3>
+            <p>الإنجاز والالتزام ومتوسط الجودة والمنجز كل أسبوع، وسجل كل مهمة: قبل الموعد، بالموعد، أو متأخرة ولماذا.</p>
+            <figure class="m-shot frame" style="margin:0"><img src="img/member.jpg" alt="ملف أداء موظف" loading="lazy"></figure>
+          </article>
+          <article class="item" data-i="5">
+            <span class="k">التقييم</span>
+            <h3>تقييم الشهر جاهز تعتمده</h3>
+            <p>الإنجاز والمواعيد والجودة والمبادرة بأوزان تحددها. الملاحظة تنكتب لك كمسودة، تعدلها وتعتمدها، ويوصل لكل موظف تقييمه ويطبعه.</p>
+            <ul><li>بدون نقاط ولا مسابقات، قياس أداء بس</li><li>ما أحد يقيّم نفسه</li></ul>
+            <figure class="m-shot frame" style="margin:0"><img src="img/reviews.jpg" alt="التقييمات الشهرية" loading="lazy"></figure>
+          </article>
+        </div>
+        <div class="show-stage" aria-hidden="false">
+          <div class="stage-box">
+            <figure class="zoom on" data-full="img/compose-full.jpg"><div class="frame"><img class="low" src="img/compose-full.jpg" alt="تحويل الكلام لمهام مقترحة"></div></figure>
+            <figure class="zoom" data-full="img/tasks.jpg"><div class="frame"><img src="img/tasks.jpg" alt="لوحة المهام" loading="lazy"></div></figure>
+            <figure class="zoom" data-full="img/analyst.jpg"><div class="frame"><img src="img/analyst.jpg" alt="تحليل الأداء" loading="lazy"></div></figure>
+            <figure class="zoom" data-full="img/depts.jpg"><div class="frame"><img src="img/depts.jpg" alt="الأقسام" loading="lazy"></div></figure>
+            <figure class="zoom" data-full="img/member.jpg"><div class="frame"><img src="img/member.jpg" alt="ملف موظف" loading="lazy"></div></figure>
+            <figure class="zoom" data-full="img/reviews.jpg"><div class="frame"><img src="img/reviews.jpg" alt="التقييمات" loading="lazy"></div></figure>
+          </div>
+          <div class="stage-meta"><span id="stageName">الخطة</span><span class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="roles" id="roles">
+    <div class="wrap">
+      <div class="sec-title">
+        <h2 class="serif rv">كل واحد يشوف اللي يخصه</h2>
+        <p class="rv">الصلاحيات محمية في قاعدة البيانات نفسها. والموظف يسجل بنفسه، وما يدخل إلا بعد موافقة مدير النظام.</p>
+      </div>
+      <div class="roles-table">
+        <div class="r rv"><span class="num">01</span><b>مدير النظام</b><p>يوافق على الموظفين الجدد، يحدد الرتب والأقسام، ويضبط معادلة التقييم.</p></div>
+        <div class="r rv"><span class="num">02</span><b>القائد</b><p>يرفع الخطة، يوزع المهام، يعتمد التسليمات، ويصدر التقييمات للفريق كله.</p></div>
+        <div class="r rv"><span class="num">03</span><b>رئيس القسم</b><p>نفس الأدوات، على قسمه فقط.</p></div>
+        <div class="r rv"><span class="num">04</span><b>العضو</b><p>مهامه وأداؤه وتقييمه، ويحرك مهمته من «بدأت» إلى «سلّمتها».</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how" id="how">
+    <div class="wrap">
+      <h2 class="serif rv" style="font-size:clamp(38px,5vw,72px)">شهر كامل، أربع خطوات</h2>
+      <div class="steps">
+        <div class="step rv"><span class="num">١</span><b>ارفع الخطة</b><p>الصقها، اكتبها بأسلوبك، أو ارفع الملف.</p></div>
+        <div class="step rv"><span class="num">٢</span><b>راجع واعتمد</b><p>المهام تطلع موزعة مع سبب كل اختيار.</p></div>
+        <div class="step rv"><span class="num">٣</span><b>تابع</b><p>الفريق يسلّم، وأنت تعتمد وتقيّم وتتنبه للمتأخر.</p></div>
+        <div class="step rv"><span class="num">٤</span><b>قيّم</b><p>آخر الشهر، التقييمات جاهزة توصلهم.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="request" id="request">
+    <div class="wrap req-grid">
+      <div class="req-copy">
+        <span class="label">صيت</span>
+        <h2 class="serif rv">اطلب نظام متابعة أداء لموظفينك الآن</h2>
+        <p class="rv">نجهزه على هوية شركتك، بأقسامك وفريقك ودومينك. عبّ الطلب ويوصلنا على الواتساب مباشرة.</p>
+        <div class="wa rv">أو تواصل مباشرة<a class="link" href="https://wa.me/966533347092" target="_blank" rel="noopener">+966 53 334 7092</a></div>
+      </div>
+      <form id="req" novalidate>
+        <div class="two">
+          <div class="f"><label for="fName">الاسم</label><input id="fName" name="name" required autocomplete="name"></div>
+          <div class="f"><label for="fCo">الشركة</label><input id="fCo" name="company" required autocomplete="organization"></div>
+        </div>
+        <div class="f">
+          <span class="muted" style="font-size:13px" id="sizeL">عدد الموظفين</span>
+          <div class="sizes" role="radiogroup" aria-labelledby="sizeL">
+            <input type="radio" name="size" id="s1" value="أقل من 10" checked><label for="s1">أقل من 10</label>
+            <input type="radio" name="size" id="s2" value="10 – 30"><label for="s2">10 – 30</label>
+            <input type="radio" name="size" id="s3" value="30 – 100"><label for="s3">30 – 100</label>
+            <input type="radio" name="size" id="s4" value="أكثر من 100"><label for="s4">أكثر من 100</label>
+          </div>
+        </div>
+        <div class="f"><label for="fSec">القطاع</label><input id="fSec" name="sector" placeholder="تسويق، مطاعم، مقاولات…"></div>
+        <div class="f"><label for="fNotes">وش أهم شي تبيه في النظام؟</label><textarea id="fNotes" name="notes" rows="3"></textarea></div>
+        <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+          <button class="btn solid" type="submit">أرسل الطلب<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+          <p class="note" id="reqNote" role="status">يفتح في الواتساب جاهز للإرسال.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="img/logo.png" alt="صيت">
+    <span>تحليل وتصميم وتطوير: عبدالملك الغامدي · صيت 2026</span>
+  </div>
+</footer>
+
+<dialog id="lb"><button type="button" aria-label="إغلاق" id="lbClose">×</button><img id="lbImg" alt=""></dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var nav = document.getElementById('nav');
+  var onScroll = function () { nav.classList.toggle('solid', window.scrollY > 30); };
+
+  // تمرير ناعم
+  var lenis = null;
+  if (!reduced && window.Lenis) {
+    lenis = new Lenis({ lerp: .1 });
+    var raf = function (t) { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+    lenis.on('scroll', onScroll);
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) { var t = document.querySelector(a.getAttribute('href')); if (t) { e.preventDefault(); lenis.scrollTo(t, { offset: -70 }); } });
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // الحركة
+  if (reduced || !window.gsap) {
+    document.body.classList.add('static');
+  } else {
+    gsap.registerPlugin(ScrollTrigger);
+    if (lenis) lenis.on('scroll', ScrollTrigger.update);
+    gsap.from('.hero h1 span i', { yPercent: 105, duration: 1.2, ease: 'power4.out', stagger: .12, delay: .15 });
+    gsap.to('.hero .rv', { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out', stagger: .1, delay: .5 });
+    gsap.fromTo('.hero-shot img', { scale: 1.08 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.hero-shot', start: 'top bottom', end: 'bottom top', scrub: true } });
+    gsap.utils.toArray('.rv').filter(function (el) { return !el.closest('.hero'); }).forEach(function (el) {
+      gsap.to(el, { opacity: 1, y: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%' } });
+    });
+  }
+
+  // تبديل الصورة مع النص
+  var items = document.querySelectorAll('.item');
+  var figs = document.querySelectorAll('.stage-box figure');
+  var dots = document.querySelectorAll('#dots i');
+  var name = document.getElementById('stageName');
+  var setActive = function (i) {
+    items.forEach(function (x, j) { x.classList.toggle('on', j === i); });
+    figs.forEach(function (x, j) { x.classList.toggle('on', j === i); });
+    dots.forEach(function (x, j) { x.classList.toggle('on', j === i); });
+    name.textContent = items[i].querySelector('.k').textContent;
+  };
+  var io = new IntersectionObserver(function (ents) {
+    ents.forEach(function (e) { if (e.isIntersecting) setActive(Number(e.target.dataset.i)); });
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  items.forEach(function (x) { io.observe(x); });
+  setActive(0);
+
+  // تكبير الصور
+  var lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg');
+  document.querySelectorAll('.zoom').forEach(function (s) {
+    s.setAttribute('tabindex', '0'); s.setAttribute('role', 'button'); s.setAttribute('aria-label', 'تكبير الصورة');
+    var open = function () { var im = s.querySelector('img'); lbImg.src = s.dataset.full; lbImg.alt = im.alt; if (lenis) lenis.stop(); lb.showModal(); };
+    s.addEventListener('click', open);
+    s.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+  });
+  lb.addEventListener('close', function () { if (lenis) lenis.start(); });
+  document.getElementById('lbClose').addEventListener('click', function () { lb.close(); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) lb.close(); });
+
+  // الطلب على الواتساب
+  document.getElementById('req').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = e.target, note = document.getElementById('reqNote');
+    if (!f.name.value.trim() || !f.company.value.trim()) { note.textContent = 'اكتب اسمك واسم الشركة.'; note.style.color = '#f0b48a'; (f.name.value.trim() ? f.company : f.name).focus(); return; }
+    var size = f.querySelector('input[name=size]:checked');
+    var msg = 'السلام عليكم، أبي نظام متابعة أداء للموظفين.\n' +
+      'الاسم: ' + f.name.value.trim() + '\n' +
+      'الشركة: ' + f.company.value.trim() + '\n' +
+      'عدد الموظفين: ' + (size ? size.value : '') + '\n' +
+      (f.sector.value.trim() ? 'القطاع: ' + f.sector.value.trim() + '\n' : '') +
+      (f.notes.value.trim() ? 'الملاحظات: ' + f.notes.value.trim() : '');
+    window.open('https://wa.me/966533347092?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+    note.textContent = 'انفتح الواتساب، اضغط إرسال هناك.'; note.style.color = '';
+  });
+})();
+</script>
+</body>
+</html>

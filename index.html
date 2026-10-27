@@ -58,7 +58,14 @@ img{max-width:100%;display:block}
 .hero-band .cap{display:flex;justify-content:space-between;align-items:center;gap:16px;color:#A9A39A;font-size:13px;padding-bottom:clamp(16px,2.4vw,30px);flex-wrap:wrap}
 .hero-band .cap b{color:var(--paper);font-weight:500}
 .hero-band .shot{border-radius:14px 14px 0 0;overflow:hidden;border:1px solid rgba(241,238,232,.12);border-bottom:0;margin:0}
-.hero-band img{width:100%;height:auto}
+.hero-band video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#0d0907}
+.vid{position:relative}
+.vid-ctl{position:absolute;bottom:16px;left:16px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(241,238,232,.92);color:#121212;display:grid;place-items:center;cursor:pointer;opacity:.85;transition:opacity .3s}
+.vid-ctl:hover{opacity:1}
+.vid-ctl svg{width:18px;height:18px}
+.vid-ctl .i-play{display:none}
+.vid-ctl.paused .i-play{display:block}
+.vid-ctl.paused .i-pause{display:none}
 
 .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:70px;border-top:1.5px solid var(--ink)}
 .facts div{padding:24px 0 0;padding-inline-end:24px;display:flex;flex-direction:column;gap:8px}
@@ -212,8 +219,11 @@ dialog button{position:fixed;top:20px;left:20px;width:48px;height:48px;border-ra
         </div>
       </div>
       <div class="hero-band rv">
-        <div class="cap"><span><b>مطبّق في صيت</b> · بهوية صيت الكاملة</span><span>لوحة القيادة</span></div>
-        <figure class="shot zoom" data-full="img/dash.jpg"><img src="img/dash.jpg" alt="لوحة القيادة في نسخة صيت: إنجاز الخطة، المهام بانتظار المراجعة، الالتزام بالمواعيد وإنجاز كل موظف" width="1800" height="1475"></figure>
+        <div class="cap"><span><b>مطبّق في صيت</b> · بهوية صيت الكاملة</span><span>جولة داخل النظام · 45 ثانية</span></div>
+        <figure class="shot vid">
+          <video id="demo" muted loop playsinline preload="metadata" poster="video/poster.jpg" aria-label="عرض للنظام: كتابة مهام بأسلوب حر، اعتمادها، لوحة المهام، والمحلل"><source src="video/demo.webm" type="video/webm"></video>
+          <button type="button" class="vid-ctl" id="vidCtl" aria-label="إيقاف الفيديو"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-pause" d="M8 5v14M16 5v14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path class="i-play" d="M8 5l11 7-11 7z" fill="currentColor"/></svg></button>
+        </figure>
       </div>
       <div class="facts">
         <div class="rv"><strong>4</strong><span>مستويات صلاحية، من مدير النظام إلى العضو</span></div>
@@ -393,11 +403,18 @@ dialog button{position:fixed;top:20px;left:20px;width:48px;height:48px;border-ra
     if (lenis) lenis.on('scroll', ScrollTrigger.update);
     gsap.from('.hero h1 > span > i', { yPercent: 105, duration: 1.2, ease: 'power4.out', stagger: .12, delay: .15 });
     gsap.to('.hero .rv', { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out', stagger: .1, delay: .5 });
-    gsap.fromTo('.hero-band img', { scale: 1.06 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.hero-band', start: 'top bottom', end: 'bottom top', scrub: true } });
     gsap.utils.toArray('.rv').filter(function (el) { return !el.closest('.hero'); }).forEach(function (el) {
       gsap.to(el, { opacity: 1, y: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%' } });
     });
   }
+
+  // الفيديو: يشتغل لما يظهر، ويوقف لما يختفي أو لو المستخدم يفضّل تقليل الحركة
+  var vid = document.getElementById('demo'), ctl = document.getElementById('vidCtl');
+  var userPaused = reduced;
+  var setCtl = function () { var p = vid.paused; ctl.classList.toggle('paused', p); ctl.setAttribute('aria-label', p ? 'تشغيل الفيديو' : 'إيقاف الفيديو'); };
+  vid.addEventListener('play', setCtl); vid.addEventListener('pause', setCtl); setCtl();
+  ctl.addEventListener('click', function () { if (vid.paused) { userPaused = false; vid.play(); } else { userPaused = true; vid.pause(); } });
+  new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting && !userPaused) vid.play().catch(function () {}); else if (!e.isIntersecting) vid.pause(); }); }, { threshold: .1 }).observe(vid);
 
   var items = document.querySelectorAll('.item');
   var figs = document.querySelectorAll('.stage-box figure');

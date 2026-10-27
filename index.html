@@ -9,7 +9,8 @@
 <meta property="og:title" content="أداء — الفريق كله، بوضوح.">
 <meta property="og:description" content="خطة الشهر تتحول لمهام موزعة، متابعة يومية، وتقييم شهري واضح. يتجهز بهوية شركتك.">
 <meta property="og:image" content="video/poster.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23121212'/%3E%3Crect x='14' y='38' width='8' height='12' rx='2' fill='%23F1EEE8'/%3E%3Crect x='28' y='28' width='8' height='22' rx='2' fill='%23F1EEE8'/%3E%3Crect x='42' y='16' width='8' height='34' rx='2' fill='%23F59A1B'/%3E%3C/svg%3E">
+<link rel="icon" href="brand/ada-icon-dark.svg">
+<link rel="apple-touch-icon" href="brand/ada-icon-dark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;500;700;800&family=Amiri:wght@700&family=IBM+Plex+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
@@ -33,9 +34,16 @@ img,video{display:block;max-width:100%}
 .btn svg{width:16px;height:16px}
 
 /* شعار */
-.mark{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
-.mark svg{width:26px;height:26px}
-.mark span{font-family:Alexandria,sans-serif;font-weight:700;font-size:20px;line-height:1}
+.mark{display:inline-flex;align-items:center;text-decoration:none;padding-top:.3em;color:var(--fg)}
+/* الشعار: «اداء» والهمزة شارت فوق الألف */
+.lg{font-family:Alexandria,sans-serif;font-weight:800;line-height:1;white-space:nowrap;display:inline-block}
+.mark .lg{font-size:26px;--bw:.1em;--h:.34em;--g:.06em}
+.lg .alef{position:relative;display:inline-block}
+.lg .hm{position:absolute;left:50%;bottom:calc(100% + var(--gap,.06em));transform:translateX(-50%);display:flex;align-items:flex-end;gap:var(--g,.045em);height:var(--h,.24em);direction:ltr}
+.lg .hm b{display:block;width:var(--bw,.07em);border-radius:.02em;background:currentColor;transform-origin:bottom}
+.lg .hm b:nth-child(1){height:40%}
+.lg .hm b:nth-child(2){height:70%}
+.lg .hm b:nth-child(3){height:100%;background:var(--orange)}
 
 .nav{position:fixed;inset-inline:0;top:0;z-index:40;mix-blend-mode:normal;transition:background .5s,backdrop-filter .5s}
 .nav.solid{background:rgba(5,5,5,.72);backdrop-filter:saturate(1.4) blur(18px);-webkit-backdrop-filter:saturate(1.4) blur(18px)}
@@ -49,7 +57,7 @@ img,video{display:block;max-width:100%}
 .hero{position:relative;padding:150px 0 50px}
 .hero-txt{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 20px 50px;z-index:2;pointer-events:none}
 .hero-txt .eb{font-size:14px;color:var(--mut);letter-spacing:.02em}
-.hero-txt h1{font-family:Alexandria,sans-serif;font-weight:800;font-size:clamp(110px,min(20vw,38vh),320px);line-height:.9;margin:14px 0 0;letter-spacing:-.04em}
+.hero-txt h1{display:flex;align-items:flex-end;justify-content:center;padding-top:.28em;font-family:Alexandria,sans-serif;font-weight:800;font-size:clamp(110px,min(20vw,38vh),320px);line-height:.9;margin:14px 0 0;letter-spacing:-.04em}
 .hero-txt h1 .dot{color:var(--orange)}
 .hero-txt p{font-family:Alexandria,sans-serif;font-weight:300;font-size:clamp(20px,2.4vw,34px);margin:18px 0 0}
 .hero-media{position:relative;width:min(1240px,100% - 32px);margin:0 auto;aspect-ratio:16/9;border-radius:22px;overflow:hidden;z-index:1;background:#0d0907}
@@ -212,7 +220,7 @@ footer a:hover{color:var(--fg)}
 
 <header class="nav" id="nav">
   <div class="wrap">
-    <a class="mark" href="#top" aria-label="أداء"><svg aria-hidden="true"><use href="#logo"/></svg><span>أداء</span></a>
+    <a class="mark" href="#top" aria-label="أداء"><span class="lg" aria-hidden="true"><span class="alef">ا<i class="hm"><b></b><b></b><b></b></i></span>داء</span></a>
     <nav class="nav-links" aria-label="أقسام الصفحة">
       <a href="#screens">المنتج</a>
       <a href="#ident">هويتك</a>
@@ -225,7 +233,7 @@ footer a:hover{color:var(--fg)}
   <section class="hero" id="hero">
     <div class="hero-txt" id="heroTxt">
       <span class="eb">نظام متابعة أداء الفريق</span>
-      <h1>أداء<span class="dot">.</span></h1>
+      <h1 aria-label="أداء"><span class="lg big" aria-hidden="true"><span class="alef">ا<i class="hm"><b></b><b></b><b></b></i></span>داء</span><span class="dot" aria-hidden="true">.</span></h1>
       <p>الفريق كله، بوضوح.</p>
     </div>
     <div class="hero-media" id="heroMedia">
@@ -352,7 +360,7 @@ footer a:hover{color:var(--fg)}
 
 <footer>
   <div class="wrap">
-    <a class="mark" href="#top"><svg aria-hidden="true"><use href="#logo"/></svg><span>أداء</span></a>
+    <a class="mark" href="#top" aria-label="أداء"><span class="lg" aria-hidden="true"><span class="alef">ا<i class="hm"><b></b><b></b><b></b></i></span>داء</span></a>
     <span>تصميم وتطوير <a href="https://abdulmalek.site">عبدالملك الغامدي</a></span>
     <span class="powered">بدعم من <img src="img/logo.png" alt="صيت"></span>
   </div>
@@ -435,6 +443,7 @@ footer a:hover{color:var(--fg)}
 
   // دخول الافتتاحية
   gsap.from('.hero-txt > *', { y: 40, opacity: 0, duration: 1.4, ease: 'power4.out', stagger: .12, delay: .15 });
+  gsap.from('.hero-txt .hm b', { scaleY: 0, duration: 1.1, ease: 'power4.out', stagger: .14, delay: .9 });
 
   var mm = gsap.matchMedia();
   mm.add('(min-width: 900px)', function () {

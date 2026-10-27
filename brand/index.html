@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>هوية أداء — دليل الاستخدام</title>
+<meta name="description" content="دليل هوية «أداء»: الشعار، الأيقونة، الألوان، الخطوط، وطريقة الاستخدام.">
+<link rel="icon" href="ada-icon-dark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;500;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--card:#0f0e0d;--fg:#F3EFE8;--mut:#8C867E;--line:rgba(243,239,232,.12);--ink:#121212;--paper:#F1EEE8;--orange:#F59A1B}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;line-height:1.8;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{display:block;max-width:100%}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+.a{font-family:Alexandria,sans-serif}
+header{padding:40px 0;border-bottom:1px solid var(--line)}
+header .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+header img{height:40px;width:auto}
+header nav{display:flex;gap:24px;font-size:14px;color:var(--mut);flex-wrap:wrap}
+header nav a{text-decoration:none}
+header nav a:hover{color:var(--fg)}
+.cover{padding:16vh 0 14vh;border-bottom:1px solid var(--line)}
+.cover .k{font-size:14px;color:var(--orange)}
+.cover h1{font-family:Alexandria,sans-serif;font-weight:800;font-size:clamp(48px,8vw,120px);line-height:1;margin:18px 0 0;letter-spacing:-.03em}
+.cover p{color:var(--mut);font-size:18px;max-width:52ch;margin:28px 0 0}
+section{padding:110px 0;border-bottom:1px solid var(--line)}
+.sh{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:60px;margin-bottom:56px}
+.sh .n{font-family:Alexandria,sans-serif;font-weight:200;font-size:15px;color:var(--mut)}
+.sh h2{font-family:Alexandria,sans-serif;font-weight:700;font-size:clamp(30px,3.6vw,48px);margin:8px 0 0;letter-spacing:-.02em}
+.sh p{margin:0;color:var(--mut);font-size:17px;align-self:end}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{border-radius:22px;display:grid;place-items:center;padding:70px 40px;min-height:340px;position:relative}
+.panel.dark{background:#121212;border:1px solid var(--line)}
+.panel.light{background:var(--paper)}
+.panel.orange{background:var(--orange)}
+.panel img{width:min(380px,80%)}
+.panel .cap{position:absolute;bottom:16px;inset-inline-start:20px;font-size:12px;color:var(--mut)}
+.panel.light .cap,.panel.orange .cap{color:#5E5A55}
+.anatomy{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:16px}
+.anatomy .panel img{width:min(460px,86%)}
+.notes{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+.notes div{padding:20px 0;border-bottom:1px solid var(--line);display:flex;gap:16px}
+.notes b{font-family:Alexandria,sans-serif;font-weight:500;min-width:110px}
+.notes span{color:var(--mut);font-size:15px}
+.icons{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.icons .panel{min-height:280px;background:var(--card);border:1px solid var(--line)}
+.icons img{width:150px}
+.colors{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.sw{border-radius:20px;overflow:hidden;border:1px solid var(--line)}
+.sw i{display:block;height:170px}
+.sw div{padding:16px 18px;background:var(--card);display:flex;flex-direction:column;gap:2px;font-size:13px}
+.sw b{font-family:Alexandria,sans-serif;font-weight:500;font-size:15px}
+.sw code{color:var(--mut);direction:ltr;text-align:right;font-family:ui-monospace,Menlo,monospace}
+.type{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tcard{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:40px}
+.tcard .big{font-size:clamp(60px,7vw,110px);line-height:1}
+.tcard .meta{margin-top:26px;color:var(--mut);font-size:14px;display:flex;flex-direction:column;gap:4px}
+.tcard .meta b{color:var(--fg);font-family:Alexandria,sans-serif;font-weight:500;font-size:17px}
+.scale{margin-top:16px;display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.scale div{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:18px 0;border-bottom:1px solid var(--line)}
+.scale small{color:var(--mut);font-size:12px;direction:ltr}
+.rules{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.rule{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:0 0 18px;overflow:hidden}
+.rule .demo{height:160px;display:grid;place-items:center;background:#121212;border-bottom:1px solid var(--line)}
+.rule .demo img{width:60%}
+.rule p{margin:14px 18px 0;font-size:14px}
+.rule .bad{color:#E3735E}
+.rule .good{color:#7CC49B}
+.dl{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.dl a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 20px;border:1px solid var(--line);border-radius:16px;text-decoration:none;font-size:14px;transition:border-color .3s}
+.dl a:hover{border-color:var(--fg)}
+.dl a span{color:var(--mut);font-size:12px;direction:ltr}
+footer{padding:36px 0;color:var(--mut);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+@media (max-width:860px){
+  .sh,.panels,.anatomy,.type{grid-template-columns:1fr}
+  .colors{grid-template-columns:repeat(2,1fr)}
+  .icons,.rules,.dl{grid-template-columns:1fr 1fr}
+}
+@media print{
+  @page{size:A4 landscape;margin:0}
+  section,.cover{break-inside:avoid;page-break-after:always;border:0}
+  header nav,.dl,footer{display:none}
+}
+</style>
+</head>
+<body>
+<header><div class="wrap"><img src="ada-logo-on-dark.svg" alt="أداء"><nav aria-label="أقسام الدليل"><a href="#logo">الشعار</a><a href="#icon">الأيقونة</a><a href="#color">الألوان</a><a href="#type">الخطوط</a><a href="#use">الاستخدام</a><a href="#files">الملفات</a></nav></div></header>
+
+<div class="cover"><div class="wrap">
+  <span class="k">دليل الهوية · الإصدار 1.0 · 2026</span>
+  <h1>هوية أداء</h1>
+  <p>«أداء» نظام متابعة أداء الفريق. الشعار كلمة واحدة بخط Alexandria، والهمزة فوق الألف تحولت لمؤشر نمو من ثلاثة أعمدة متصاعدة، آخرها برتقالي: الأداء يرتفع.</p>
+</div></div>
+
+<section id="logo"><div class="wrap">
+  <div class="sh"><div><span class="n">01</span><h2>الشعار</h2></div><p>الشعار الأساسي يُستخدم على الخلفيات الداكنة والفاتحة. لا يُعاد رسمه ولا يُكتب بخط آخر، استخدم الملفات الجاهزة.</p></div>
+  <div class="panels">
+    <div class="panel dark"><img src="ada-logo-on-dark.svg" alt="الشعار على الداكن"><span class="cap">على الداكن</span></div>
+    <div class="panel light"><img src="ada-logo-on-light.svg" alt="الشعار على الفاتح"><span class="cap">على الفاتح</span></div>
+  </div>
+  <div class="anatomy" style="margin-top:16px">
+    <div class="panel light"><img src="ada-logo-mono-black.svg" alt="نسخة أحادية"><span class="cap">أحادي اللون، للطباعة بلون واحد والختم</span></div>
+    <div class="notes">
+      <div><b>الكلمة</b><span>«اداء» بخط Alexandria بوزن ExtraBold 800، محوّلة لمسارات.</span></div>
+      <div><b>الهمزة</b><span>ثلاثة أعمدة متصاعدة بنسب 40٪ و70٪ و100٪، والأخير برتقالي.</span></div>
+      <div><b>المسافة</b><span>اترك حول الشعار مسافة فارغة لا تقل عن ارتفاع الأعمدة.</span></div>
+      <div><b>أصغر حجم</b><span>‏24px للشاشات، و12mm في الطباعة. أصغر من كذا استخدم الأيقونة.</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="icon"><div class="wrap">
+  <div class="sh"><div><span class="n">02</span><h2>الأيقونة</h2></div><p>الألف بهمزتها الشارت، داخل مربع بزوايا ناعمة. للتطبيق، وأيقونة المتصفح، وصور الحسابات.</p></div>
+  <div class="icons">
+    <div class="panel"><img src="ada-icon-dark.svg" alt="أيقونة داكنة"><span class="cap">الأساسية</span></div>
+    <div class="panel"><img src="ada-icon-light.svg" alt="أيقونة فاتحة"><span class="cap">فاتحة</span></div>
+    <div class="panel"><img src="ada-icon-orange.svg" alt="أيقونة برتقالية"><span class="cap">للتمييز</span></div>
+  </div>
+</div></section>
+
+<section id="color"><div class="wrap">
+  <div class="sh"><div><span class="n">03</span><h2>الألوان</h2></div><p>الأسود والكريمي هم الأساس. البرتقالي لمسة وحدة في كل شاشة: الشارت، زر مهم، رقم يستاهل الانتباه.</p></div>
+  <div class="colors">
+    <div class="sw"><i style="background:#050505;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)"></i><div><b>ليل</b><code>#050505</code><span class="a" style="color:#8C867E">الخلفية السينمائية</span></div></div>
+    <div class="sw"><i style="background:#121212"></i><div><b>حبر</b><code>#121212</code><span style="color:#8C867E">النصوص والشعار على الفاتح</span></div></div>
+    <div class="sw"><i style="background:#F1EEE8"></i><div><b>ورق</b><code>#F1EEE8</code><span style="color:#8C867E">الخلفية الفاتحة</span></div></div>
+    <div class="sw"><i style="background:#F3EFE8"></i><div><b>كريمي</b><code>#F3EFE8</code><span style="color:#8C867E">النصوص على الداكن</span></div></div>
+    <div class="sw"><i style="background:#F59A1B"></i><div><b>برتقالي أداء</b><code>#F59A1B</code><span style="color:#8C867E">اللمسة الوحيدة</span></div></div>
+  </div>
+</div></section>
+
+<section id="type"><div class="wrap">
+  <div class="sh"><div><span class="n">04</span><h2>الخطوط</h2></div><p>خطين مجانيين من Google Fonts. Alexandria للعناوين والأرقام، وIBM Plex Sans Arabic للنصوص.</p></div>
+  <div class="type">
+    <div class="tcard"><div class="big a" style="font-weight:800">أداء ٢٤</div><div class="meta"><b>Alexandria</b><span>العناوين، الأرقام الكبيرة، الشعار · 200 / 700 / 800</span></div></div>
+    <div class="tcard"><div class="big" style="font-weight:400">نص واضح</div><div class="meta"><b>IBM Plex Sans Arabic</b><span>النصوص والواجهات والنماذج · 400 / 500</span></div></div>
+  </div>
+  <div class="scale">
+    <div><span class="a" style="font-weight:800;font-size:56px;line-height:1.1">عنوان رئيسي</span><small>Alexandria 800 · 56–120px</small></div>
+    <div><span class="a" style="font-weight:700;font-size:34px">عنوان قسم</span><small>Alexandria 700 · 30–48px</small></div>
+    <div><span class="a" style="font-weight:200;font-size:44px">68٪</span><small>Alexandria 200 · numbers</small></div>
+    <div><span style="font-size:17px">نص أساسي يُقرأ بسهولة على الشاشة والجوال.</span><small>IBM Plex Sans Arabic 400 · 16–18px</small></div>
+  </div>
+</div></section>
+
+<section id="use"><div class="wrap">
+  <div class="sh"><div><span class="n">05</span><h2>الاستخدام</h2></div><p>ثبات الشعار هو اللي يخليه يتعرف عليه. هذي الأخطاء الشائعة.</p></div>
+  <div class="rules">
+    <div class="rule"><div class="demo"><img src="ada-logo-on-dark.svg" alt=""></div><p class="good">صحيح: الملف الجاهز على خلفية داكنة</p></div>
+    <div class="rule"><div class="demo"><img src="ada-logo-on-dark.svg" alt="" style="transform:scaleX(1.5)"></div><p class="bad">خطأ: تمديد أو ضغط الشعار</p></div>
+    <div class="rule"><div class="demo" style="background:#F59A1B"><img src="ada-logo-on-light.svg" alt="" style="filter:hue-rotate(160deg)"></div><p class="bad">خطأ: تغيير لون الشارت</p></div>
+    <div class="rule"><div class="demo" style="background:#6E95FF"><img src="ada-logo-on-dark.svg" alt=""></div><p class="bad">خطأ: خلفية ملونة بتباين ضعيف</p></div>
+  </div>
+</div></section>
+
+<section id="files" style="border-bottom:0"><div class="wrap">
+  <div class="sh"><div><span class="n">06</span><h2>الملفات</h2></div><p>SVG للتصميم والمواقع، وPNG بخلفية شفافة وبدقة عالية.</p></div>
+  <div class="dl">
+    <a href="ada-logo-on-dark.svg" download>الشعار على الداكن<span>SVG</span></a>
+    <a href="ada-logo-on-dark.png" download>الشعار على الداكن<span>PNG 2400</span></a>
+    <a href="ada-logo-on-light.svg" download>الشعار على الفاتح<span>SVG</span></a>
+    <a href="ada-logo-on-light.png" download>الشعار على الفاتح<span>PNG 2400</span></a>
+    <a href="ada-logo-mono-black.svg" download>أحادي أسود<span>SVG</span></a>
+    <a href="ada-logo-mono-white.svg" download>أحادي أبيض<span>SVG</span></a>
+    <a href="ada-icon-dark.svg" download>الأيقونة الداكنة<span>SVG</span></a>
+    <a href="ada-icon-dark.png" download>الأيقونة الداكنة<span>PNG 1024</span></a>
+    <a href="ada-icon-orange.png" download>الأيقونة البرتقالية<span>PNG 1024</span></a>
+    <a href="ada-brand-guide.pdf" download>دليل الهوية كامل<span>PDF</span></a>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><span>هوية «أداء» · تصميم عبدالملك الغامدي</span><a href="../">الموقع</a></div></footer>
+</body>
+</html>
